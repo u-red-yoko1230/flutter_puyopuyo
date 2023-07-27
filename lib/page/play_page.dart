@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_puyopuyo/material/controller_movement.dart';
+import 'package:flutter_puyopuyo/material/controller_rotation.dart';
 import 'package:flutter_puyopuyo/material/main_field_widget.dart';
 import 'package:flutter_puyopuyo/material/next_field_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,14 +19,16 @@ class PlayPage extends ConsumerWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Flutter PuyoPuyo'),
       ),
-      body: Center(
+      body: const Center(
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(color: Colors.red, child: const MainFieldWidget()),
-            const SizedBox(width: 20),
-            const SizedBox(
+            ControllerMovement(),
+            SizedBox(width: 20),
+            MainFieldWidget(),
+            SizedBox(width: 20),
+            SizedBox(
               width: AppSettings.puyoSize * 3,
               height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
               child: Column(
@@ -48,6 +52,8 @@ class PlayPage extends ConsumerWidget {
                 ],
               ),
             ),
+            SizedBox(width: 20),
+            ControllerRotation(),
           ],
         ),
       ),
