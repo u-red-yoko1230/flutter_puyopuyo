@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_puyopuyo/state/main_field_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
+import '../model/puyo_field.dart';
+import 'cross_mark_widget.dart';
+import 'puyo_widget.dart';
 
 /// メインフィールド
 /// main field
@@ -11,6 +15,39 @@ class MainFieldWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // プロバイダー
+    // メインフィールド
+    final List<List<PuyoField>> mainField = ref.watch(mainFieldStateProvider);
+
+    // ウィジェット
+    // メインフィールド : ぷよ
+    final List<Widget> widgetsPuyo = [];
+
+    // クロスマーク設定
+    widgetsPuyo.add(
+      const Positioned(
+        left: AppSettings.puyoSize * 2,
+        top: AppSettings.puyoSize * ((GameSettings.mainFieldYSize - 1) - 11),
+        child: CrossMarkWidget(size: AppSettings.puyoSize),
+      ),
+    );
+
+    // メインフィールドぷよ設定
+    mainField.asMap().forEach((x, px) {
+      px.asMap().forEach((y, py) {
+        widgetsPuyo.add(
+          Positioned(
+            left: AppSettings.puyoSize * x,
+            top: AppSettings.puyoSize * ((GameSettings.mainFieldYSize - 1) - y),
+            child: PuyoWidget(
+              puyoField: py,
+              size: AppSettings.puyoSize,
+            ),
+          ),
+        );
+      });
+    });
+
     // メインフィールド
     // main field
     return SizedBox(
@@ -62,9 +99,9 @@ class MainFieldWidget extends ConsumerWidget {
             width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
             height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
             color: Colors.transparent,
-            // child: Stack(
-            //   children: widget,
-            // ),
+            child: Stack(
+              children: widgetsPuyo,
+            ),
           ),
         ],
       ),

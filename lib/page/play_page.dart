@@ -7,13 +7,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
+import '../state/main_field_state.dart';
 
 class PlayPage extends ConsumerWidget {
   const PlayPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool land = MediaQuery.of(context).orientation == Orientation.landscape;
+    // bool land = MediaQuery.of(context).orientation == Orientation.landscape;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
