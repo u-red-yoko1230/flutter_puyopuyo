@@ -11,9 +11,9 @@ class GameSettings {
 
   /// メインフィールド : 縦サイズ
   /// Main field : Vertical size
-  static const int mainFieldYSize = 13;
+  static const int mainFieldYSize = 14;
 
   /// 非表示メインフィールド : 縦サイズ
   /// Hide main field : Vertical size
-  static const int hiddenMainFieldYSize = 1;
+  static const int hiddenMainFieldYSize = 2;
 }
