@@ -4,6 +4,7 @@ import '../app_settings.dart';
 import '../model/puyo_piece.dart';
 
 /// ぷよ（フィールド）
+/// Puyo (field)
 class PuyoField extends PuyoPiece {
   PuyoField({
     super.puyoType,

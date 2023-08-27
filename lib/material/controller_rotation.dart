@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../state/main_field_state.dart';
 import 'custom_menu_button.dart';
 
+/// コントローラー（回転）
+/// Controller (rotation)
 class ControllerRotation extends ConsumerWidget {
   const ControllerRotation({super.key});
 
