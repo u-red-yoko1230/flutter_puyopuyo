@@ -61,7 +61,7 @@ class MainFieldWidget extends ConsumerWidget {
               // hidden main field
               Container(
                 width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
-                height: AppSettings.puyoSize * GameSettings.hiddenMainFieldYSize,
+                height: AppSettings.puyoSize * GameSettings.hideMainFieldYSize,
                 decoration: BoxDecoration(
                   color: Colors.lightBlue,
                   boxShadow: [
@@ -78,7 +78,7 @@ class MainFieldWidget extends ConsumerWidget {
               // Display main field
               Container(
                 width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
-                height: AppSettings.puyoSize * (GameSettings.mainFieldYSize - GameSettings.hiddenMainFieldYSize),
+                height: AppSettings.puyoSize * (GameSettings.mainFieldYSize - GameSettings.hideMainFieldYSize),
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   boxShadow: [
