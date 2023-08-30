@@ -15,47 +15,49 @@ class PlayPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // bool land = MediaQuery.of(context).orientation == Orientation.landscape;
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Flutter PuyoPuyo'),
-      ),
-      body: const Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ControllerMovement(),
-            SizedBox(width: 20),
-            MainFieldWidget(),
-            SizedBox(width: 20),
-            SizedBox(
-              width: AppSettings.puyoSize * 3,
-              height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      NextFieldWidget(paddingTop: 20, paddingBottom: 20),
-                      NextFieldWidget(paddingTop: 20, paddingBottom: 20),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text('Erased Puyo : ${1}'),
-                      Text('Max Chains : ${2}'),
-                      Text('Score : ${'00000000'}'),
-                    ],
-                  ),
-                ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text('Flutter PuyoPuyo'),
+        ),
+        body: const Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ControllerMovement(),
+              SizedBox(width: 20),
+              MainFieldWidget(),
+              SizedBox(width: 20),
+              SizedBox(
+                width: AppSettings.puyoSize * 3,
+                height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        NextFieldWidget(paddingTop: 20, paddingBottom: 20),
+                        NextFieldWidget(paddingTop: 20, paddingBottom: 20),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Text('Erased Puyo : ${1}'),
+                        Text('Max Chains : ${2}'),
+                        Text('Score : ${'00000000'}'),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(width: 20),
-            ControllerRotation(),
-          ],
+              SizedBox(width: 20),
+              ControllerRotation(),
+            ],
+          ),
         ),
       ),
     );
