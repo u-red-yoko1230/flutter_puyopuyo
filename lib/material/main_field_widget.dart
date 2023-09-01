@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_puyopuyo/model/puyo_piece.dart';
 import 'package:flutter_puyopuyo/state/main_field_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,7 +18,7 @@ class MainFieldWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // プロバイダー
     // メインフィールド
-    final List<List<PuyoField>> mainField = ref.watch(mainFieldStateProvider);
+    final List<List<PuyoPiece>> mainField = ref.watch(mainFieldStateProvider);
 
     // ウィジェット
     // メインフィールド : ぷよ
@@ -40,7 +41,7 @@ class MainFieldWidget extends ConsumerWidget {
             left: AppSettings.puyoSize * x,
             top: AppSettings.puyoSize * ((GameSettings.mainFieldYSize - 1) - y),
             child: PuyoWidget(
-              puyoField: py,
+              puyoPiece: py,
               size: AppSettings.puyoSize,
             ),
           ),

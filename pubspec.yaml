@@ -34,6 +34,13 @@ dependencies:
   # Flutter Riverpod
   flutter_riverpod: ^2.3.6
 
+  # Freezed Annotation
+  # flutter pub run build_runner build --delete-conflicting-outputs
+  freezed_annotation: ^2.4.1
+
+  # JSON Annotation
+  json_annotation: ^4.8.1
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -42,8 +49,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # Build Runner
+  build_runner: ^2.4.6
+
   # Freezed
   freezed: ^2.4.2
+
+  # JSON Serializable
+  json_serializable: ^6.7.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
