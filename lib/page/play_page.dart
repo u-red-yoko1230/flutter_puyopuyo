@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/material/controller_movement.dart';
-import 'package:flutter_puyopuyo/material/controller_rotation.dart';
-import 'package:flutter_puyopuyo/material/main_field_widget.dart';
-import 'package:flutter_puyopuyo/material/next_field_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
-import '../state/main_field_state.dart';
+import '../material/controller_movement.dart';
+import '../material/controller_rotation.dart';
+import '../material/main_field_widget.dart';
+import '../material/next_field_widget.dart';
 
 class PlayPage extends ConsumerWidget {
   const PlayPage({super.key});
