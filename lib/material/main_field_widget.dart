@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/model/puyo_piece.dart';
-import 'package:flutter_puyopuyo/state/main_field_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
-import '../model/puyo_field.dart';
+import '../model/puyo_piece.dart';
+import '../state/main_field_state.dart';
 import 'cross_mark_widget.dart';
 import 'puyo_widget.dart';
 
