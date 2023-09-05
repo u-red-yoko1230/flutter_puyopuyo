@@ -19,7 +19,7 @@ class GameSettings {
 
   /// 移動ステップ数
   /// Number of movement steps
-  static const int numOfMoveSteps = 20;
+  static const double numOfMoveSteps = 20;
 
   /// 消去可能ぷよ数
   static const int numOfErasablePuyos = 4;
