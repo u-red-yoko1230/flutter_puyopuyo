@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/model/puyo_piece.dart';
 
-import '../model/puyo_field.dart';
+import '../model/puyo_piece.dart';
 import '../sprite_painter.dart';
 
 /// ぷよ
