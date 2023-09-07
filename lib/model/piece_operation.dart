@@ -3,14 +3,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../game_settings.dart';
 
-part 'play_operation.freezed.dart';
+part 'piece_operation.freezed.dart';
 
-/// プレイ操作
-/// play operation
+/// ピース(ツモ)操作
+/// Piece operation
 @freezed
-class PlayOperation with _$PlayOperation {
-    const PlayOperation._();
-  const factory PlayOperation({
+class PieceOperation with _$PieceOperation {
+    const PieceOperation._();
+  const factory PieceOperation({
   /// 軸の位置 : X
   /// Axis position : X
   @Default(GameSettings.numOfMoveSteps * 2.0) double axisPositionX,
@@ -22,5 +22,17 @@ class PlayOperation with _$PlayOperation {
   /// 回転状態種類
   /// Rotation state type
   @Default(RotationStateType.U) RotationStateType rotationStateType,
-  }) = _PlayOperation;
+
+  /// 回転角度
+  /// Rotation degree
+  @Default(0.0) double rotationDegree,
+
+  /// クイックターンフラグ
+  /// quick-turn flag
+  @Default(false) bool quickTurnFlag,
+
+  /// 接地時間
+  /// Grounding Time
+  @Default(0.0) double groundingTime,
+  }) = _PieceOperation;
 }
