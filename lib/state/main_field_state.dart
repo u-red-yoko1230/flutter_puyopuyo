@@ -21,6 +21,11 @@ class MainFieldState extends StateNotifier<List<List<PuyoPiece>>> {
     state = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const PuyoPiece()));
   }
 
+  /// セット
+  void set(PuyoType puyoType) {
+    state = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => PuyoPiece.field(puyoType: puyoType)));
+  }
+
   /// テスト
   Future<void> test() async {
     state = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const PuyoPiece.field(puyoType: PuyoType.r)));

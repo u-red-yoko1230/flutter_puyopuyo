@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_puyopuyo/app_settings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../controller/play_controller.dart';
 import '../state/main_field_state.dart';
 import 'custom_menu_button.dart';
 
@@ -13,8 +14,10 @@ class ControllerRotation extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // プロバイダー
-    // メインフィールド
-    final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
+    // プレイコントローラ
+    final PlayController playController = ref.read(playControllerProvider);
+    // // メインフィールド
+    // final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
 
     return Container(
       width: AppSettings.ctrlBtnSize * 2,
@@ -57,7 +60,7 @@ class ControllerRotation extends ConsumerWidget {
               icon: Icons.rotate_right,
               // iconSize: dIconSize,
               onTap: () {
-                mainFieldState.test();
+                playController.action();
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 
