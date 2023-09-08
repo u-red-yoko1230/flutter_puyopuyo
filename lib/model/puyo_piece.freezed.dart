@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PuyoPiece {
   /// ぷよ種類
+  /// Puyo Type
   PuyoType get puyoType => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
@@ -143,6 +144,7 @@ class _$_PuyoPiece extends _PuyoPiece {
   const _$_PuyoPiece({this.puyoType = PuyoType.n}) : super._();
 
   /// ぷよ種類
+  /// Puyo Type
   @override
   @JsonKey()
   final PuyoType puyoType;
@@ -251,6 +253,7 @@ abstract class _PuyoPiece extends PuyoPiece {
   @override
 
   /// ぷよ種類
+  /// Puyo Type
   PuyoType get puyoType;
   @override
   @JsonKey(ignore: true)
@@ -334,31 +337,37 @@ class _$PuyoField extends PuyoField {
       : super._();
 
   /// ぷよ種類
+  /// Puyo Type
   @override
   @JsonKey()
   final PuyoType puyoType;
 
-  /// 落下状態
+  /// 落下したばかり
+  /// Just dropped
   @override
   @JsonKey()
   final bool justDropped;
 
-  /// 結合：上
+  /// 連結 : 上
+  /// Connected : Top
   @override
   @JsonKey()
   final bool connectedTop;
 
-  /// 結合：右
+  /// 連結 : 右
+  /// Connected : Right
   @override
   @JsonKey()
   final bool connectedRight;
 
-  /// 結合：下
+  /// 連結 : 右
+  /// Connected : Bottom
   @override
   @JsonKey()
   final bool connectedBottom;
 
-  /// 結合：左
+  /// 連結 : 左
+  /// Connected : Left
   @override
   @JsonKey()
   final bool connectedLeft;
@@ -487,21 +496,27 @@ abstract class PuyoField extends PuyoPiece {
   @override
 
   /// ぷよ種類
+  /// Puyo Type
   PuyoType get puyoType;
 
-  /// 落下状態
+  /// 落下したばかり
+  /// Just dropped
   bool get justDropped;
 
-  /// 結合：上
+  /// 連結 : 上
+  /// Connected : Top
   bool get connectedTop;
 
-  /// 結合：右
+  /// 連結 : 右
+  /// Connected : Right
   bool get connectedRight;
 
-  /// 結合：下
+  /// 連結 : 右
+  /// Connected : Bottom
   bool get connectedBottom;
 
-  /// 結合：左
+  /// 連結 : 左
+  /// Connected : Left
   bool get connectedLeft;
   @override
   @JsonKey(ignore: true)
