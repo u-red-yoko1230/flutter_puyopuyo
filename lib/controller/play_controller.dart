@@ -1,11 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/game_settings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../enum/puyo_type.dart';
-import '../model/puyo_piece.dart';
 import '../state/main_field_state.dart';
 
 /// プレイコントローラープロバイダ
