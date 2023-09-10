@@ -1,3 +1,5 @@
+import 'enum/puyo_type.dart';
+
 /// game setup class
 /// ゲーム設定クラス
 class GameSettings {
@@ -23,4 +25,14 @@ class GameSettings {
 
   /// 消去可能ぷよ数
   static const int numOfErasablePuyos = 4;
+
+  /// ぷよ(色)リスト
+  /// Puyo (color) list
+  static const List<PuyoType> puyoColorList = [
+    PuyoType.r,
+    PuyoType.g,
+    PuyoType.b,
+    PuyoType.y,
+    PuyoType.p,
+  ];
 }

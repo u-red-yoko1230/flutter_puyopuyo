@@ -8,8 +8,8 @@ import '../material/controller_rotation.dart';
 import '../material/main_field_widget.dart';
 import '../material/next_field_widget.dart';
 
-class PlayPage extends ConsumerWidget {
-  const PlayPage({super.key});
+class GamePage extends ConsumerWidget {
+  const GamePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

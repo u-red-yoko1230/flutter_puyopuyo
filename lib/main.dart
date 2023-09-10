@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_puyopuyo/page/play_page.dart';
+import 'package:flutter_puyopuyo/page/game_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// スプライトイメージデータ
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const PlayPage(),
+      home: const GamePage(),
     );
   }
 }

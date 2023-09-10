@@ -1,42 +1,48 @@
-// import 'dart:math';
+// // import 'dart:math';
+
+// // import 'package:flutter/material.dart';
+// // import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+// // import '../app_settings.dart';
+// // import '../database/mobile.dart';
+// // import '../enum/game_mode_type.dart';
+// // import '../enum/game_nazo_setting_type.dart';
+// // import '../enum/game_puyo_type.dart';
+// // import '../enum/game_setting_type.dart';
+// // import '../enum/pick_color_type.dart';
+// // import '../enum/pick_overwritten_type.dart';
+// // import '../enum/puyo_piece_type.dart';
+// // import '../enum/puyo_type.dart';
+// // import '../enum/series_character_type.dart';
+// // import '../enum/user_pick_pair_type.dart';
+// // import '../game_utility.dart';
+// // import '../model/puyo_drop_set.dart';
+// // import 'game_nazo_setting_info_state.dart';
+// // import 'game_setting_info_state.dart';
+
+// // /// プロバイダー：ネクストフィールド情報
+// // final nextFieldProvider = ChangeNotifierProvider((ref) => NextFieldState(ref));
+
+// // /// プロバイダー：エディットネクストフィールド情報
+// // final editNextFieldProvider = ChangeNotifierProvider((ref) => NextFieldState(ref));
 
 // import 'package:flutter/material.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// import '../app_settings.dart';
-// import '../database/mobile.dart';
-// import '../enum/game_mode_type.dart';
-// import '../enum/game_nazo_setting_type.dart';
-// import '../enum/game_puyo_type.dart';
-// import '../enum/game_setting_type.dart';
-// import '../enum/pick_color_type.dart';
-// import '../enum/pick_overwritten_type.dart';
-// import '../enum/puyo_piece_type.dart';
-// import '../enum/puyo_type.dart';
-// import '../enum/series_character_type.dart';
-// import '../enum/user_pick_pair_type.dart';
-// import '../game_utility.dart';
-// import '../model/puyo_drop_set.dart';
-// import 'game_nazo_setting_info_state.dart';
-// import 'game_setting_info_state.dart';
+// import '../model/drop_set.dart';
 
-// /// プロバイダー：ネクストフィールド情報
-// final nextFieldProvider = ChangeNotifierProvider((ref) => NextFieldState(ref));
-
-// /// プロバイダー：エディットネクストフィールド情報
-// final editNextFieldProvider = ChangeNotifierProvider((ref) => NextFieldState(ref));
-
-// /// ネクストフィールド情報
-// class NextFieldState extends ChangeNotifier {
-//   NextFieldState(this.ref);
+// /// 配ぷよ(ドロップセット)状態
+// /// Allocated Puyo (drop set) state
+// class DropSetState extends ChangeNotifier {
+//   DropSetState(this.ref);
 
 //   final Ref ref;
 
-//   /// 配ぷよリスト
-//   List<PuyoDropSet> dropSetList = [];
+//   /// 配ぷよ(ドロップセット)リスト
+//   List<DropSet> dropSetList = [];
 
-//   /// 配色リスト
-//   List<String> dealList = [];
+//   // /// 配色リスト
+//   // List<String> dealList = [];
 
 //   /// 配ぷよリスト初期化 : とことんモードのみ
 //   Future<void> initFreeDropSet({bool isGenDealSet = true, List<dynamic>? loadDealValue}) async {
@@ -83,7 +89,8 @@
 //     notifyListeners();
 //   }
 
-//   /// 配色リスト生成 : とことんモードのみ
+//   /// 色リスト生成
+//   /// Color List Generation
 //   Future<List<String>> generateDealSet() async {
 //     // ステート設定 : とことん
 //     final appDb = ref.read(pcsAppDbProvider);

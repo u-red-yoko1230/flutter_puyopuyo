@@ -1,43 +1,10 @@
 // import 'package:flutter/material.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// import '../app_settings.dart';
-// import '../enum/game_mode_type.dart';
-// import '../enum/game_nazo_setting_type.dart';
-// import '../enum/game_puyo_type.dart';
-// import '../enum/game_setting_type.dart';
-// import '../enum/operation_type.dart';
-// import '../enum/pcs_mode_type.dart';
-// import '../enum/pick_color_type.dart';
-// import '../enum/puyo_piece_type.dart';
-// import '../enum/puyo_type.dart';
-// import '../model/puyo_drop_set.dart';
-// import '../state/game_nazo_setting_info_state.dart';
-// import '../state/game_setting_info_state.dart';
-// import '../state/next_field_state.dart';
-// import '../state/operation_history_state.dart';
-// import '../state/operation_state.dart';
-// import '../utility.dart';
-// import '../widget/puyo_operation_widget.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_puyopuyo/state/main_field_state.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// import '../app_settings.dart';
-// import '../game_settings.dart';
-// import '../model/puyo_field.dart';
-// import 'cross_mark_widget.dart';
-// import 'puyo_widget.dart';
-
-// /// オペレーション
-// /// operation
-// class OperationWidget extends ConsumerWidget {
-//   const OperationWidget({
-//     super.key
-//   });
-
-//   final PCSModeType pcsModeType;
-//   final double basePuyoSize;
+// /// ピース(ツモ)操作フィールド
+// /// Piece Operation Field
+// class PieceOperationFieldWidget extends ConsumerWidget {
+//   const PieceOperationFieldWidget({super.key});
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
@@ -79,8 +46,13 @@
 //     // ぷよサイズ
 //     final double dPuyoSize = basePuyoSize.minF;
 
-//     // ウィジェットリスト
-//     final List<Widget> widget = [];
+//     // プロバイダー
+//     // メインフィールド
+//     final List<List<PuyoPiece>> mainFieldState = ref.watch(mainFieldStateProvider);
+
+//     // ウィジェット
+//     // 組ぷよフィールド : ぷよ
+//     final List<Widget> widgetsPuyo = [];
 
 //     // ドロップセットが取得できる場合
 //     if (puyoDropSet != null) {

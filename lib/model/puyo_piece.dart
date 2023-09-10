@@ -7,8 +7,8 @@ import '../enum/puyo_type.dart';
 
 part 'puyo_piece.freezed.dart';
 
-/// ぷよ
-/// puyo
+/// 組ぷよ
+/// Puyo piece
 @freezed
 class PuyoPiece with _$PuyoPiece {
   const PuyoPiece._();

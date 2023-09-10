@@ -10,7 +10,7 @@ import '../model/puyo_piece.dart';
 final mainFieldStateProvider = StateNotifierProvider<MainFieldState, List<List<PuyoPiece>>>((ref) => MainFieldState(ref));
 
 /// メインフィールド状態
-/// Main field condition
+/// Main field state
 class MainFieldState extends StateNotifier<List<List<PuyoPiece>>> {
   MainFieldState(this.ref) : super([[], []]);
 

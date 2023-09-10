@@ -17,7 +17,7 @@ class MainFieldWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // プロバイダー
     // メインフィールド
-    final List<List<PuyoPiece>> mainField = ref.watch(mainFieldStateProvider);
+    final List<List<PuyoPiece>> mainFieldState = ref.watch(mainFieldStateProvider);
 
     // ウィジェット
     // メインフィールド : ぷよ
@@ -33,7 +33,7 @@ class MainFieldWidget extends ConsumerWidget {
     );
 
     // メインフィールドぷよ設定
-    mainField.asMap().forEach((x, px) {
+    mainFieldState.asMap().forEach((x, px) {
       px.asMap().forEach((y, py) {
         widgetsPuyo.add(
           Positioned(

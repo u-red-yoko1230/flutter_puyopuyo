@@ -4,9 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../app_settings.dart';
 
 class NextFieldWidget extends ConsumerWidget {
-  const NextFieldWidget({super.key,    this.paddingTop,
+  const NextFieldWidget({
+    super.key,
+    this.paddingTop,
     this.paddingBottom,
-});
+  });
 
   final double? paddingTop;
   final double? paddingBottom;
@@ -39,5 +41,4 @@ class NextFieldWidget extends ConsumerWidget {
       ],
     );
   }
-
 }

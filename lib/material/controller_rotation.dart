@@ -15,7 +15,7 @@ class ControllerRotation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // プロバイダー
     // プレイコントローラ
-    final PlayController playController = ref.read(playControllerProvider);
+    final GameController playController = ref.read(gameControllerProvider);
     // // メインフィールド
     // final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
 
@@ -60,7 +60,7 @@ class ControllerRotation extends ConsumerWidget {
               icon: Icons.rotate_right,
               // iconSize: dIconSize,
               onTap: () {
-                playController.action();
+                playController.gameLogic();
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 
