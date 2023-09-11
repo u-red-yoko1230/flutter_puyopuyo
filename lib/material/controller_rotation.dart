@@ -3,7 +3,6 @@ import 'package:flutter_puyopuyo/app_settings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../controller/play_controller.dart';
-import '../state/main_field_state.dart';
 import 'custom_menu_button.dart';
 
 /// コントローラー（回転）

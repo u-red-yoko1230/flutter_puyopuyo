@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../enum/puyo_type.dart';
 import '../game_settings.dart';
-import '../model/puyo_field.dart';
 import '../model/puyo_piece.dart';
 
 /// メインフィールド状態プロバイダ

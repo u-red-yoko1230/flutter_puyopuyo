@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../enum/puyo_type.dart';
-import '../game_settings.dart';
 import '../model/piece_operation.dart';
-import '../model/puyo_field.dart';
-import '../model/puyo_piece.dart';
 
 /// ピース(ツモ)操作状態プロバイダ
 /// piece operation state provider

@@ -26,21 +26,20 @@ class GameController {
   Future<void> gameLogic() async {
     // プロバイダー
     // ゲーム状態
-    final GameStateType  gameState = ref.read(gameStateProvider);
-    final GameState  gameStateNotifier = ref.read(gameStateProvider.notifier);
+    final GameState gameState = ref.read(gameStateProvider.notifier);
     // メインフィールド
-    final MainFieldState mainFieldNotifier = ref.read(mainFieldStateProvider.notifier);
+    final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
 
     // ゲーム状態 : 実行
-    gameStateNotifier.changeOfGameState(GameStateType.run);
+    gameState.changeOfGameState(GameStateType.run);
 
     // アクション
-    while (gameState != GameStateType.none) {
+    while (gameState.getState() != GameStateType.none) {
       //#region ゲーム状態 : 実行時
-      if (gameState == GameStateType.run) {}
+      if (gameState.getState() == GameStateType.run) {}
       //#endregion
       for (PuyoType puyoType in PuyoType.values) {
-        mainFieldNotifier.set(puyoType);
+        mainFieldState.set(puyoType);
         await Future.delayed(const Duration(milliseconds: 1000));
       }
     }

@@ -13,6 +13,10 @@ class GameState extends StateNotifier<GameStateType> {
 
   final Ref ref;
 
+  GameStateType getState() {
+    return state;
+  }
+
   /// ゲーム状態の変更
   void changeOfGameState(GameStateType gameState) => state = gameState;
 }
