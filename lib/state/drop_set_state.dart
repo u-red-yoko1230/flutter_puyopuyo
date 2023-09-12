@@ -27,6 +27,8 @@
 // // final editNextFieldProvider = ChangeNotifierProvider((ref) => NextFieldState(ref));
 
 // import 'package:flutter/material.dart';
+// import 'package:flutter_puyopuyo/enum/puyo_type.dart';
+// import 'package:flutter_puyopuyo/game_settings.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // import '../model/drop_set.dart';
@@ -66,7 +68,7 @@
 //       if (loadDealValue != null) {
 //         dealList = loadDealValue.map((e) => e.toString()).toList();
 //       } else {
-//         dealList = await generateDealSet();
+//         dealList = await generateDealtColorList();
 //       }
 //     }
 
@@ -89,9 +91,16 @@
 //     notifyListeners();
 //   }
 
-//   /// 色リスト生成
+//   /// 配色リスト生成
 //   /// Color List Generation
-//   Future<List<String>> generateDealSet() async {
+//   Future<List<String>> generateDealtColorList() async {
+//     // 基本色リストの取得
+//     final List<PuyoType> puyoColorList = GameSettings.puyoColorList.toList();
+//     // 基本色リストのシャッフル
+//     puyoColorList.shuffle();
+
+//     // 使用される基本色の取得
+
 //     // ステート設定 : とことん
 //     final appDb = ref.read(pcsAppDbProvider);
 //     final gameSettingInfoCurrent = ref.read(gameSettingInfoCurrentProvider);
