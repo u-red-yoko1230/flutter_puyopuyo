@@ -93,7 +93,7 @@
 
 //   /// 配色リスト生成
 //   /// Color List Generation
-//   Future<List<String>> generateDealtColorList() async {
+//   Future<List<String>> generateDealtColorList(int numOfColors) async {
 //     // 基本色リストの取得
 //     final List<PuyoType> puyoColorList = GameSettings.puyoColorList.toList();
 //     // 基本色リストのシャッフル
