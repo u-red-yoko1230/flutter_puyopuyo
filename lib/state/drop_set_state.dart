@@ -95,11 +95,11 @@
 //   /// Color List Generation
 //   Future<List<String>> generateDealtColorList(int numOfColors) async {
 //     // 基本色リストの取得
-//     final List<PuyoType> puyoColorList = GameSettings.puyoColorList.toList();
+//     List<PuyoType> puyoColorList = GameSettings.puyoColorList.toList();
 //     // 基本色リストのシャッフル
 //     puyoColorList.shuffle();
-
 //     // 使用される基本色の取得
+//     puyoColorList = puyoColorList.take(numOfColors).toList();
 
 //     // ステート設定 : とことん
 //     final appDb = ref.read(pcsAppDbProvider);
@@ -312,14 +312,15 @@
 
 //   /// ランダム色リストの生成
 //   List<String> generateRandomizeDealList(int num, List<PuyoType> colorSet) {
-//     // 返却リスト生成
-//     final List<String> list = List.generate(num, (_) => PuyoType.n.name);
-//     // リストへ色を均等に設定
-//     list.asMap().forEach((k, v) {
-//       list[k] = colorSet[k % colorSet.length].name;
-//     });
+//     return List.generate(num, (index) => colorSet[index % colorSet.length].name);
+//     // // 返却リスト生成
+//     // final List<String> list = List.generate(num, (_) => PuyoType.n.name);
+//     // // リストへ色を均等に設定
+//     // list.asMap().forEach((k, v) {
+//     //   list[k] = colorSet[k % colorSet.length].name;
+//     // });
 
-//     return list;
+//     // return list;
 //   }
 
 //   /// 配ぷよリストからぷよ形種類リスト生成 : なぞなぞモードのみ
