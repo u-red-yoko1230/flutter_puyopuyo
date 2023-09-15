@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../enum/puyo_piece_type.dart';
+import '../enum/puyo_shape_type.dart';
 import '../enum/puyo_type.dart';
 
 part 'drop_set.freezed.dart';

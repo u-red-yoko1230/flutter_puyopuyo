@@ -26,6 +26,9 @@ class GameSettings {
   /// 消去可能ぷよ数
   static const int numOfErasablePuyos = 4;
 
+  /// ループあたりの手数
+  static const int numOfMovesPerLoop = 128;
+
   /// ぷよ(色)リスト
   /// Puyo (color) list
   static const List<PuyoType> puyoColorList = [
