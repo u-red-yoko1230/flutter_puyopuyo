@@ -16,7 +16,6 @@ class NextFieldWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // ネクストフィールド
-    // next field
     return Column(
       children: [
         SizedBox(height: paddingTop),

@@ -6,7 +6,6 @@ import '../controller/play_controller.dart';
 import 'custom_menu_button.dart';
 
 /// コントローラー（回転）
-/// Controller (rotation)
 class ControllerRotation extends ConsumerWidget {
   const ControllerRotation({super.key});
 

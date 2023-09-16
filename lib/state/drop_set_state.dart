@@ -1,41 +1,14 @@
-// import 'dart:math';
-
-// import 'package:flutter/material.dart';
-// import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-// import '../app_settings.dart';
-// import '../database/mobile.dart';
-// import '../enum/game_mode_type.dart';
-// import '../enum/game_nazo_setting_type.dart';
-// import '../enum/game_puyo_type.dart';
-// import '../enum/game_setting_type.dart';
-// import '../enum/pick_color_type.dart';
-// import '../enum/pick_overwritten_type.dart';
-// import '../enum/puyo_piece_type.dart';
-// import '../enum/puyo_type.dart';
-// import '../enum/series_character_type.dart';
-// import '../enum/user_pick_pair_type.dart';
-// import '../game_utility.dart';
-// import '../model/puyo_drop_set.dart';
-// import 'game_nazo_setting_info_state.dart';
-// import 'game_setting_info_state.dart';
-
-// /// プロバイダー：ネクストフィールド情報
-// final nextFieldProvider = ChangeNotifierProvider((ref) => NextFieldState(ref));
-
-// /// プロバイダー：エディットネクストフィールド情報
-// final editNextFieldProvider = ChangeNotifierProvider((ref) => NextFieldState(ref));
-
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/enum/num_of_colors_type.dart';
-import 'package:flutter_puyopuyo/enum/puyo_type.dart';
-import 'package:flutter_puyopuyo/game_settings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../enum/character_type.dart';
+import '../enum/num_of_colors_type.dart';
+import '../enum/puyo_shape_type.dart';
+import '../enum/puyo_type.dart';
+import '../game_settings.dart';
 import '../model/drop_set.dart';
 
-/// 配ぷよ(ドロップセット)状態
-/// Allocated Puyo (drop set) state
+/// 配ぷよ(ドロップセット)リスト状態
 class DropSetState extends ChangeNotifier {
   DropSetState(this.ref);
 
@@ -44,110 +17,58 @@ class DropSetState extends ChangeNotifier {
   /// 配ぷよ(ドロップセット)リスト
   List<DropSet> dropSetList = [];
 
-  // /// 配色リスト
-  // List<String> dealList = [];
-
-  // /// 配ぷよリスト初期化 : とことんモードのみ
-  // Future<void> initFreeDropSet({bool isGenDealSet = true, List<dynamic>? loadDealValue}) async {
-  //   // ステート設定 : とことん
-  //   final gameSettingInfoCurrent = ref.read(gameSettingInfoCurrentProvider);
-
-  //   // ゲームモードの取得
-  //   final GameModeType gameModeType = GameModeType.values.byName(gameSettingInfoCurrent.value![GameSettingType.mode]!);
-
-  //   // ゲームぷよ種類設定
-  //   final GamePuyoType gamePuyoType = gameModeType.getGamePuyoType();
-
-  //   // 色設定の取得
-  //   final PickColorType pickColorType = PickColorType.values.byName(gameSettingInfoCurrent.value![GameSettingType.picksColors]!);
-
-  //   // キャラクターの取得
-  //   final SeriesCharacterType seriesCharacterType = SeriesCharacterType.values.byName(gameSettingInfoCurrent.value![GameSettingType.seriesCharacter]!);
-
-  //   // DealSetの取得（色）
-  //   if (isGenDealSet) {
-  //     if (loadDealValue != null) {
-  //       dealList = loadDealValue.map((e) => e.toString()).toList();
-  //     } else {
-  //       dealList = await getDealtColorList();
-  //     }
-  //   }
-
-  //   // ShapeSetの取得（形）
-  //   List<PuyoPieceType> shapeList;
-  //   if (gamePuyoType == GamePuyoType.tsu) {
-  //     // 通モードの場合
-  //     // DropSetの取得（形固定）
-  //     shapeList = SeriesCharacterType.tsuArle.dropSet;
-  //   } else {
-  //     // フィーバーモードの場合
-  //     // DropSetの取得
-  //     shapeList = seriesCharacterType.dropSet;
-  //   }
-
-  //   // 配ぷよリスト生成＆設定
-  //   dropSetList = GameUtility.generateDropSet(AppSettings.iMoves, shapeList: shapeList, dealList: dealList, pickColorType: pickColorType);
-
-  //   // 反映
-  //   notifyListeners();
-  // }
-
   /// 初期化
   void initialize() {
+    /// 配ぷよ(ドロップセット)リスト設定
+    dropSetList = generateDropSetList(
+      puyoShapeList: getPuyoShapeList(CharacterType.tsuArle),
+      puyoColorList: getPuyoColorList(NumOfColorsType.four),
+    );
 
+    // 反映
+    notifyListeners();
   }
 
-  // /// 配ぷよ(ドロップセット)リスト生成
-  // List<DropSet> generateDropSetList(
-  //   int moves, {
-  //   required List<PuyoPieceType> shapeList,
-  //   required List<String> dealList,
-  //   PickColorType pickColorType = PickColorType.four,
-  // }) {
-  //   // 配ぷよリストへ設定
-  //   // 色取得ポジション
-  //   int iColorPos = 0;
+  /// 配ぷよ(ドロップセット)リスト生成
+  List<DropSet> generateDropSetList({
+    required List<PuyoShapeType> puyoShapeList,
+    required List<PuyoType> puyoColorList,
+  }) {
+    // カラーリストインデックス
+    int colorListIndex = 0;
 
-  //   // ドロップセット - 生成
-  //   List<PuyoDropSet> dropSetList = [];
+    // 配ぷよ(ドロップセット)生成リスト
+    List<DropSet> genDropSetList = [];
 
-  //   // 設定手数分(128) - 生成処理
-  //   for (int i = 0; i < moves; i++) {
-  //     PuyoPieceType puyoPiecesType = shapeList[i % shapeList.length];
-  //     String dealParent = dealList[iColorPos];
-  //     String dealPChild = dealList.asMap().containsKey(iColorPos + 1) ? dealList[iColorPos + 1] : PuyoType.e.name;
+    // 手数分 - 生成処理
+    for (int i = 0; i < GameSettings.numOfMovesPerLoop; i++) {
+      // ぷよ形状
+      PuyoShapeType puyoShapeType = puyoShapeList[i % puyoShapeList.length];
+      // ぷよカラー(軸)
+      PuyoType puyoTypeAxis = puyoColorList[colorListIndex];
+      PuyoType puyoTypeChild = puyoColorList[colorListIndex + 1];
 
-  //     // [PuyoPieceType.W] のときに親と子が同じ色になる場合、子を次色に設定
-  //     if (puyoPiecesType == PuyoPieceType.W && dealParent == dealPChild) {
-  //       PuyoType puyoTypeKey = PuyoType.values.byName(dealPChild);
-  //       // 次色取得
-  //       int iNext = (AppSettings.puyoTypeDefault.indexOf(puyoTypeKey) + 1) % pickColorType.value;
-  //       // 設定
-  //       dealPChild = AppSettings.puyoTypeDefault[iNext].name;
-  //     }
+      // 配ぷよ(ドロップセット)生成リスト追加
+      genDropSetList.add(DropSet(
+        puyoShapeType: puyoShapeType,
+        puyoTypeAxis: puyoTypeAxis,
+        puyoTypeChild: puyoTypeChild,
+      ));
 
-  //     // ドロップセット追加
-  //     dropSetList.add(PuyoDropSet.pair(
-  //       puyoPieceType: puyoPiecesType,
-  //       puyoTypeParent: PuyoType.values.byName(dealParent),
-  //       puyoTypePChild: PuyoType.values.byName(dealPChild),
-  //     ));
+      // カラーリストインデックスカウント
+      colorListIndex += 2;
+    }
 
-  //     // 色取得ポジションカウント
-  //     // [PuyoPieceType.O] のときは1つ分のみ
-  //     if (puyoPiecesType == PuyoPieceType.O) {
-  //       iColorPos += 1;
-  //     } else {
-  //       iColorPos += 2;
-  //     }
-  //   }
+    return genDropSetList;
+  }
 
-  //   return dropSetList;
-  // }
+  /// ぷよ形状リスト取得
+  List<PuyoShapeType> getPuyoShapeList(CharacterType characterType) {
+    return characterType.puyoShapeList.toList();
+  }
 
-  /// 配色リスト取得
-  /// Color List Generation
-  List<PuyoType> getDealtColorList(NumOfColorsType numOfColorsType) {
+  /// ぷよ配色リスト取得
+  List<PuyoType> getPuyoColorList(NumOfColorsType numOfColorsType) {
     // 基本色リストの取得
     List<PuyoType> puyoColorList = GameSettings.puyoColorList.toList();
     // 基本色リストのシャッフル
@@ -190,12 +111,4 @@ class DropSetState extends ChangeNotifier {
         return dropSet5ColorsList;
     }
   }
-
-  // /// ぷよドロップセット取得
-  // PuyoDropSet? getPuyoDropSet(int index) {
-  //   // 設定
-  //   if (dropSetList.asMap().containsKey(index)) return dropSetList[index];
-
-  //   return null;
-  // }
 }

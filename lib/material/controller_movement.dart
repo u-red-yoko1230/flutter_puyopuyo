@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'custom_menu_button.dart';
 
 /// コントローラー（移動）
-/// Controller (Movement)
 class ControllerMovement extends ConsumerWidget {
   const ControllerMovement({super.key});
 

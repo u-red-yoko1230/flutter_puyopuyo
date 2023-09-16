@@ -1,5 +1,4 @@
 /// ぷよ種類
-/// Puyo Type
 enum PuyoType {
   n, // None
   r, // Red

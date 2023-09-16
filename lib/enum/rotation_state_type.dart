@@ -1,7 +1,6 @@
 import 'rotation_operation_type.dart';
 
 /// 回転状態種類
-/// Rotation state type
 enum RotationStateType {
   U,
   R,
@@ -10,7 +9,6 @@ enum RotationStateType {
 }
 
 /// 回転状態種類 : エクステンション
-/// Rotation state type : Extension
 extension RotationStateTypeExtension on RotationStateType {
   RotationStateType next() {
     return RotationStateType.values[(index + 1) % RotationStateType.values.length];

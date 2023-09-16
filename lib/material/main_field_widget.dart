@@ -9,7 +9,6 @@ import 'cross_mark_widget.dart';
 import 'puyo_widget.dart';
 
 /// メインフィールド
-/// main field
 class MainFieldWidget extends ConsumerWidget {
   const MainFieldWidget({super.key});
 
@@ -49,7 +48,6 @@ class MainFieldWidget extends ConsumerWidget {
     });
 
     // メインフィールド
-    // main field
     return SizedBox(
       width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
       height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
@@ -58,7 +56,6 @@ class MainFieldWidget extends ConsumerWidget {
           Column(
             children: [
               // 非表示メインフィールド
-              // hidden main field
               Container(
                 width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
                 height: AppSettings.puyoSize * GameSettings.hideMainFieldYSize,
@@ -75,7 +72,6 @@ class MainFieldWidget extends ConsumerWidget {
                 ),
               ),
               // 表示メインフィールド
-              // Display main field
               Container(
                 width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
                 height: AppSettings.puyoSize * (GameSettings.mainFieldYSize - GameSettings.hideMainFieldYSize),
@@ -94,7 +90,6 @@ class MainFieldWidget extends ConsumerWidget {
             ],
           ),
           // ぷよの表示
-          // Display of Puyo
           Container(
             width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
             height: AppSettings.puyoSize * GameSettings.mainFieldYSize,

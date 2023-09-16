@@ -1,5 +1,4 @@
 /// プレイヤーアクションタイプ
-/// Player Action Type
 enum PlayerActionType {
   crossKeyUp,
   crossKeyDown,

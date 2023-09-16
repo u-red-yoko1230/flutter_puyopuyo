@@ -7,39 +7,31 @@ import '../enum/puyo_type.dart';
 part 'puyo_piece.freezed.dart';
 
 /// 組ぷよ
-/// Puyo piece
 @freezed
 class PuyoPiece with _$PuyoPiece {
   const PuyoPiece._();
   const factory PuyoPiece({
     /// ぷよ種類
-    /// Puyo Type
     @Default(PuyoType.n) PuyoType puyoType,
   }) = _PuyoPiece;
 
   const factory PuyoPiece.field({
     /// ぷよ種類
-    /// Puyo Type
     @Default(PuyoType.n) PuyoType puyoType,
 
     /// 落下したばかり
-    /// Just dropped
     @Default(false) bool justDropped,
 
     /// 連結 : 上
-    /// Connected : Top
     @Default(false) bool connectedTop,
 
     /// 連結 : 右
-    /// Connected : Right
     @Default(false) bool connectedRight,
 
     /// 連結 : 右
-    /// Connected : Bottom
     @Default(false) bool connectedBottom,
 
     /// 連結 : 左
-    /// Connected : Left
     @Default(false) bool connectedLeft,
   }) = PuyoField;
 }
