@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_puyopuyo/app_settings.dart';
+import 'package:flutter_puyopuyo/state/drop_set_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../controller/play_controller.dart';
@@ -16,6 +17,8 @@ class ControllerRotation extends ConsumerWidget {
     final GameController playController = ref.read(gameControllerProvider);
     // // メインフィールド
     // final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
+    //
+    final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
 
     return Container(
       width: AppSettings.ctrlBtnSize * 2,
@@ -37,6 +40,7 @@ class ControllerRotation extends ConsumerWidget {
               icon: Icons.rotate_left,
               // iconSize: dIconSize,
               onTap: () {
+                dropSetState.reset();
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 

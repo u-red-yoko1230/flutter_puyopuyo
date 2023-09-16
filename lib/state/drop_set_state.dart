@@ -8,6 +8,9 @@ import '../enum/puyo_type.dart';
 import '../game_settings.dart';
 import '../model/drop_set.dart';
 
+/// 配ぷよ(ドロップセット)リスト状態プロバイダ
+final dropSetStateProvider = ChangeNotifierProvider((ref) => DropSetState(ref));
+
 /// 配ぷよ(ドロップセット)リスト状態
 class DropSetState extends ChangeNotifier {
   DropSetState(this.ref);
@@ -17,8 +20,8 @@ class DropSetState extends ChangeNotifier {
   /// 配ぷよ(ドロップセット)リスト
   List<DropSet> dropSetList = [];
 
-  /// 初期化
-  void initialize() {
+  /// リセット
+  void reset() {
     /// 配ぷよ(ドロップセット)リスト設定
     dropSetList = generateDropSetList(
       puyoShapeList: getPuyoShapeList(CharacterType.tsuArle),
@@ -27,6 +30,14 @@ class DropSetState extends ChangeNotifier {
 
     // 反映
     notifyListeners();
+  }
+
+  /// ドロップセット取得
+  DropSet? getDropSet(int index) {
+    // 設定
+    if (dropSetList.asMap().containsKey(index)) return dropSetList[index];
+
+    return null;
   }
 
   /// 配ぷよ(ドロップセット)リスト生成

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
-import '../model/puyo_piece.dart';
 import '../state/main_field_state.dart';
 import 'cross_mark_widget.dart';
 import 'puyo_widget.dart';
@@ -16,7 +15,7 @@ class MainFieldWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // プロバイダー
     // メインフィールド
-    final List<List<PuyoPiece>> mainFieldState = ref.watch(mainFieldStateProvider);
+    final MainFieldState mainFieldState = ref.watch(mainFieldStateProvider);
 
     // ウィジェット
     // メインフィールド : ぷよ
@@ -32,7 +31,7 @@ class MainFieldWidget extends ConsumerWidget {
     );
 
     // メインフィールドぷよ設定
-    mainFieldState.asMap().forEach((x, px) {
+    mainFieldState.mainFieldList.asMap().forEach((x, px) {
       px.asMap().forEach((y, py) {
         widgetsPuyo.add(
           Positioned(

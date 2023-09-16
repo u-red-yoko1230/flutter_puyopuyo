@@ -39,8 +39,9 @@ class GamePage extends ConsumerWidget {
                   children: [
                     Column(
                       children: [
-                        NextFieldWidget(paddingTop: 20, paddingBottom: 20),
-                        NextFieldWidget(paddingTop: 20, paddingBottom: 20),
+                        NextFieldWidget(nextMovePosition: 0, paddingTop: 20, paddingBottom: 20),
+                        NextFieldWidget(nextMovePosition: 1, paddingTop: 20, paddingBottom: 20),
+                        NextFieldWidget(nextMovePosition: 2, paddingTop: 20, paddingBottom: 20),
                       ],
                     ),
                     Column(

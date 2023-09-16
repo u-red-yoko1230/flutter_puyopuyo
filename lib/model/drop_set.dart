@@ -1,3 +1,4 @@
+import 'package:flutter_puyopuyo/enum/rotation_state_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../enum/puyo_shape_type.dart';
@@ -17,4 +18,15 @@ class DropSet with _$DropSet {
     /// ぷよ種類 : 子
     @Default(PuyoType.n) PuyoType puyoTypeChild,
   }) = _DropSet;
+}
+
+extension DropSetExtension on DropSet {
+  /// ぷよ種類の取得(軸)
+  PuyoType getPuyoTypeAxis() {
+      return puyoTypeAxis;
+  }
+  /// ぷよ種類の取得(子)
+  PuyoType getPuyoTypeChild() {
+      return puyoTypeChild;
+  }
 }
