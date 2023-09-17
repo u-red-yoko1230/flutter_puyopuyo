@@ -38,7 +38,7 @@ class MainFieldWidget extends ConsumerWidget {
             left: AppSettings.puyoSize * x,
             top: AppSettings.puyoSize * ((GameSettings.mainFieldYSize - 1) - y),
             child: PuyoWidget(
-              puyoPiece: py,
+              puyo: py,
               size: AppSettings.puyoSize,
             ),
           ),

@@ -4,18 +4,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../app_settings.dart';
 import '../enum/puyo_type.dart';
 
-part 'puyo_piece.freezed.dart';
+part 'puyo.freezed.dart';
 
 /// 組ぷよ
 @freezed
-class PuyoPiece with _$PuyoPiece {
-  const PuyoPiece._();
-  const factory PuyoPiece({
+class Puyo with _$Puyo {
+  const Puyo._();
+  const factory Puyo({
     /// ぷよ種類
     @Default(PuyoType.n) PuyoType puyoType,
-  }) = _PuyoPiece;
+  }) = _Puyo;
 
-  const factory PuyoPiece.field({
+  const factory Puyo.field({
     /// ぷよ種類
     @Default(PuyoType.n) PuyoType puyoType,
 
@@ -36,7 +36,7 @@ class PuyoPiece with _$PuyoPiece {
   }) = PuyoField;
 }
 
-extension PuyoPieceExtension on PuyoPiece {
+extension PuyoExtension on Puyo {
   /// スプライト矩形座標の取得
   Rect getSpriteSourceRect() {
     return when(

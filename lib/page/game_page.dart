@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_puyopuyo/material/piece_operation_field_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
@@ -27,7 +28,10 @@ class GamePage extends ConsumerWidget {
             children: [
               ControllerMovement(),
               SizedBox(width: 20),
-              MainFieldWidget(),
+              Stack(children: [
+                MainFieldWidget(),
+                PieceOperationFieldWidget(),
+              ]),
               SizedBox(width: 20),
               SizedBox(
                 width: AppSettings.puyoSize * 3,

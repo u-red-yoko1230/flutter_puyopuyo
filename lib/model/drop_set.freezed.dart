@@ -17,15 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DropSet {
   /// ぷよ形種類
-  /// Puyo shape Type
   PuyoShapeType get puyoShapeType => throw _privateConstructorUsedError;
 
   /// ぷよ種類 : 軸
-  /// Puyo shape Type
   PuyoType get puyoTypeAxis => throw _privateConstructorUsedError;
 
   /// ぷよ種類 : 子
-  /// Puyo shape Type
   PuyoType get puyoTypeChild => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -131,19 +128,16 @@ class _$_DropSet extends _DropSet {
       : super._();
 
   /// ぷよ形種類
-  /// Puyo shape Type
   @override
   @JsonKey()
   final PuyoShapeType puyoShapeType;
 
   /// ぷよ種類 : 軸
-  /// Puyo shape Type
   @override
   @JsonKey()
   final PuyoType puyoTypeAxis;
 
   /// ぷよ種類 : 子
-  /// Puyo shape Type
   @override
   @JsonKey()
   final PuyoType puyoTypeChild;
@@ -187,17 +181,14 @@ abstract class _DropSet extends DropSet {
   @override
 
   /// ぷよ形種類
-  /// Puyo shape Type
   PuyoShapeType get puyoShapeType;
   @override
 
   /// ぷよ種類 : 軸
-  /// Puyo shape Type
   PuyoType get puyoTypeAxis;
   @override
 
   /// ぷよ種類 : 子
-  /// Puyo shape Type
   PuyoType get puyoTypeChild;
   @override
   @JsonKey(ignore: true)

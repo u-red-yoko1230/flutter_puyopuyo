@@ -17,27 +17,27 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$PieceOperation {
   /// 軸の位置 : X
-  /// Axis position : X
   double get axisPositionX => throw _privateConstructorUsedError;
 
   /// 軸の位置 : Y
-  /// Axis position : Y
   double get axisPositionY => throw _privateConstructorUsedError;
 
+  /// 軸の位置(移動) : X
+  double? get axisPositionMoveX => throw _privateConstructorUsedError;
+
+  /// 軸の位置(移動) : Y
+  double? get axisPositionMoveY => throw _privateConstructorUsedError;
+
   /// 回転状態種類
-  /// Rotation state type
   RotationStateType get rotationStateType => throw _privateConstructorUsedError;
 
   /// 回転角度
-  /// Rotation degree
   double get rotationDegree => throw _privateConstructorUsedError;
 
   /// クイックターンフラグ
-  /// quick-turn flag
   bool get quickTurnFlag => throw _privateConstructorUsedError;
 
   /// 接地時間
-  /// Grounding Time
   double get groundingTime => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -54,6 +54,8 @@ abstract class $PieceOperationCopyWith<$Res> {
   $Res call(
       {double axisPositionX,
       double axisPositionY,
+      double? axisPositionMoveX,
+      double? axisPositionMoveY,
       RotationStateType rotationStateType,
       double rotationDegree,
       bool quickTurnFlag,
@@ -75,6 +77,8 @@ class _$PieceOperationCopyWithImpl<$Res, $Val extends PieceOperation>
   $Res call({
     Object? axisPositionX = null,
     Object? axisPositionY = null,
+    Object? axisPositionMoveX = freezed,
+    Object? axisPositionMoveY = freezed,
     Object? rotationStateType = null,
     Object? rotationDegree = null,
     Object? quickTurnFlag = null,
@@ -89,6 +93,14 @@ class _$PieceOperationCopyWithImpl<$Res, $Val extends PieceOperation>
           ? _value.axisPositionY
           : axisPositionY // ignore: cast_nullable_to_non_nullable
               as double,
+      axisPositionMoveX: freezed == axisPositionMoveX
+          ? _value.axisPositionMoveX
+          : axisPositionMoveX // ignore: cast_nullable_to_non_nullable
+              as double?,
+      axisPositionMoveY: freezed == axisPositionMoveY
+          ? _value.axisPositionMoveY
+          : axisPositionMoveY // ignore: cast_nullable_to_non_nullable
+              as double?,
       rotationStateType: null == rotationStateType
           ? _value.rotationStateType
           : rotationStateType // ignore: cast_nullable_to_non_nullable
@@ -120,6 +132,8 @@ abstract class _$$_PieceOperationCopyWith<$Res>
   $Res call(
       {double axisPositionX,
       double axisPositionY,
+      double? axisPositionMoveX,
+      double? axisPositionMoveY,
       RotationStateType rotationStateType,
       double rotationDegree,
       bool quickTurnFlag,
@@ -139,6 +153,8 @@ class __$$_PieceOperationCopyWithImpl<$Res>
   $Res call({
     Object? axisPositionX = null,
     Object? axisPositionY = null,
+    Object? axisPositionMoveX = freezed,
+    Object? axisPositionMoveY = freezed,
     Object? rotationStateType = null,
     Object? rotationDegree = null,
     Object? quickTurnFlag = null,
@@ -153,6 +169,14 @@ class __$$_PieceOperationCopyWithImpl<$Res>
           ? _value.axisPositionY
           : axisPositionY // ignore: cast_nullable_to_non_nullable
               as double,
+      axisPositionMoveX: freezed == axisPositionMoveX
+          ? _value.axisPositionMoveX
+          : axisPositionMoveX // ignore: cast_nullable_to_non_nullable
+              as double?,
+      axisPositionMoveY: freezed == axisPositionMoveY
+          ? _value.axisPositionMoveY
+          : axisPositionMoveY // ignore: cast_nullable_to_non_nullable
+              as double?,
       rotationStateType: null == rotationStateType
           ? _value.rotationStateType
           : rotationStateType // ignore: cast_nullable_to_non_nullable
@@ -179,6 +203,8 @@ class _$_PieceOperation extends _PieceOperation {
   const _$_PieceOperation(
       {this.axisPositionX = GameSettings.numOfMoveSteps * 2.0,
       this.axisPositionY = GameSettings.numOfMoveSteps * 1.5,
+      this.axisPositionMoveX = null,
+      this.axisPositionMoveY = null,
       this.rotationStateType = RotationStateType.U,
       this.rotationDegree = 0.0,
       this.quickTurnFlag = false,
@@ -186,44 +212,48 @@ class _$_PieceOperation extends _PieceOperation {
       : super._();
 
   /// 軸の位置 : X
-  /// Axis position : X
   @override
   @JsonKey()
   final double axisPositionX;
 
   /// 軸の位置 : Y
-  /// Axis position : Y
   @override
   @JsonKey()
   final double axisPositionY;
 
+  /// 軸の位置(移動) : X
+  @override
+  @JsonKey()
+  final double? axisPositionMoveX;
+
+  /// 軸の位置(移動) : Y
+  @override
+  @JsonKey()
+  final double? axisPositionMoveY;
+
   /// 回転状態種類
-  /// Rotation state type
   @override
   @JsonKey()
   final RotationStateType rotationStateType;
 
   /// 回転角度
-  /// Rotation degree
   @override
   @JsonKey()
   final double rotationDegree;
 
   /// クイックターンフラグ
-  /// quick-turn flag
   @override
   @JsonKey()
   final bool quickTurnFlag;
 
   /// 接地時間
-  /// Grounding Time
   @override
   @JsonKey()
   final double groundingTime;
 
   @override
   String toString() {
-    return 'PieceOperation(axisPositionX: $axisPositionX, axisPositionY: $axisPositionY, rotationStateType: $rotationStateType, rotationDegree: $rotationDegree, quickTurnFlag: $quickTurnFlag, groundingTime: $groundingTime)';
+    return 'PieceOperation(axisPositionX: $axisPositionX, axisPositionY: $axisPositionY, axisPositionMoveX: $axisPositionMoveX, axisPositionMoveY: $axisPositionMoveY, rotationStateType: $rotationStateType, rotationDegree: $rotationDegree, quickTurnFlag: $quickTurnFlag, groundingTime: $groundingTime)';
   }
 
   @override
@@ -235,6 +265,10 @@ class _$_PieceOperation extends _PieceOperation {
                 other.axisPositionX == axisPositionX) &&
             (identical(other.axisPositionY, axisPositionY) ||
                 other.axisPositionY == axisPositionY) &&
+            (identical(other.axisPositionMoveX, axisPositionMoveX) ||
+                other.axisPositionMoveX == axisPositionMoveX) &&
+            (identical(other.axisPositionMoveY, axisPositionMoveY) ||
+                other.axisPositionMoveY == axisPositionMoveY) &&
             (identical(other.rotationStateType, rotationStateType) ||
                 other.rotationStateType == rotationStateType) &&
             (identical(other.rotationDegree, rotationDegree) ||
@@ -246,8 +280,16 @@ class _$_PieceOperation extends _PieceOperation {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, axisPositionX, axisPositionY,
-      rotationStateType, rotationDegree, quickTurnFlag, groundingTime);
+  int get hashCode => Object.hash(
+      runtimeType,
+      axisPositionX,
+      axisPositionY,
+      axisPositionMoveX,
+      axisPositionMoveY,
+      rotationStateType,
+      rotationDegree,
+      quickTurnFlag,
+      groundingTime);
 
   @JsonKey(ignore: true)
   @override
@@ -260,6 +302,8 @@ abstract class _PieceOperation extends PieceOperation {
   const factory _PieceOperation(
       {final double axisPositionX,
       final double axisPositionY,
+      final double? axisPositionMoveX,
+      final double? axisPositionMoveY,
       final RotationStateType rotationStateType,
       final double rotationDegree,
       final bool quickTurnFlag,
@@ -269,32 +313,34 @@ abstract class _PieceOperation extends PieceOperation {
   @override
 
   /// 軸の位置 : X
-  /// Axis position : X
   double get axisPositionX;
   @override
 
   /// 軸の位置 : Y
-  /// Axis position : Y
   double get axisPositionY;
   @override
 
+  /// 軸の位置(移動) : X
+  double? get axisPositionMoveX;
+  @override
+
+  /// 軸の位置(移動) : Y
+  double? get axisPositionMoveY;
+  @override
+
   /// 回転状態種類
-  /// Rotation state type
   RotationStateType get rotationStateType;
   @override
 
   /// 回転角度
-  /// Rotation degree
   double get rotationDegree;
   @override
 
   /// クイックターンフラグ
-  /// quick-turn flag
   bool get quickTurnFlag;
   @override
 
   /// 接地時間
-  /// Grounding Time
   double get groundingTime;
   @override
   @JsonKey(ignore: true)

@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../app_settings.dart';
 import '../enum/puyo_shape_type.dart';
 import '../model/drop_set.dart';
-import '../model/puyo_piece.dart';
-import '../state/current_move_position.dart';
+import '../model/puyo.dart';
 import '../state/drop_set_state.dart';
+import '../state/piece_operation_state.dart';
 import 'puyo_widget.dart';
 
 class NextFieldWidget extends ConsumerWidget {
@@ -24,13 +24,13 @@ class NextFieldWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // プロバイダー
-    // 現在の手数位置
-    final int currentMovePosition = ref.watch(currentMovePositionStateProvider);
+    // ピース(ツモ)操作状態
+    final PieceOperationState pieceOperationState = ref.watch(pieceOperationStateProvider);
     // 配ぷよ(ドロップセット)リスト
     final DropSetState dropSetState = ref.watch(dropSetStateProvider);
 
-    // 現在手のドロップセットの取得
-    final DropSet? dropSet = dropSetState.getDropSet(currentMovePosition + nextMovePosition);
+    // 指定ネクストのドロップセットの取得
+    final DropSet? dropSet = dropSetState.getDropSet(pieceOperationState.currentMovePosition + nextMovePosition);
 
     // ウィジェット
     // ネクストフィールド : ぷよ
@@ -41,10 +41,11 @@ class NextFieldWidget extends ConsumerWidget {
       // ぷよ形状の取得
       final PuyoShapeType puyoShapeType = dropSet.puyoShapeType;
       // ぷよ種類の取得(軸)
-      final PuyoPiece puyoPieceAxis = PuyoPiece(puyoType: dropSet.getPuyoTypeAxis());
+      final Puyo puyoAxis = Puyo(puyoType: dropSet.getPuyoTypeAxis());
       // ぷよ種類の取得(子)
-      final PuyoPiece puyoPieceChild = PuyoPiece(puyoType: dropSet.getPuyoTypeChild());
+      final Puyo puyoChild = Puyo(puyoType: dropSet.getPuyoTypeChild());
 
+      // ぷよ形状別設定
       switch (puyoShapeType) {
         case PuyoShapeType.I:
           widgetsPuyo.add(
@@ -54,11 +55,11 @@ class NextFieldWidget extends ConsumerWidget {
                 Column(
                   children: [
                     PuyoWidget(
-                      puyoPiece: puyoPieceAxis,
+                      puyo: puyoAxis,
                       size: AppSettings.puyoSize,
                     ),
                     PuyoWidget(
-                      puyoPiece: puyoPieceChild,
+                      puyo: puyoChild,
                       size: AppSettings.puyoSize,
                     ),
                   ],

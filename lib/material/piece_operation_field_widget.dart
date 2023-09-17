@@ -1,94 +1,94 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// /// ピース(ツモ)操作フィールド
-// /// Piece Operation Field
-// class PieceOperationFieldWidget extends ConsumerWidget {
-//   const PieceOperationFieldWidget({super.key});
+import '../app_settings.dart';
+import '../enum/game_state_type.dart';
+import '../enum/puyo_shape_type.dart';
+import '../game_settings.dart';
+import '../model/drop_set.dart';
+import '../model/piece_operation.dart';
+import '../model/puyo.dart';
+import '../state/drop_set_state.dart';
+import '../state/game_state.dart';
+import '../state/piece_operation_state.dart';
+import 'puyo_widget.dart';
 
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     // ステート設定 : とことん
-//     final gameSettingInfoCurrent = ref.read(gameSettingInfoCurrentProvider);
-//     // ステート設定 : なぞなぞ
-//     final gameNazoSettingInfoCurrent = ref.read(gameNazoSettingInfoCurrentProvider);
-//     // ステート設定 : 共通
-//     final operation = ref.watch(operationProvider);
-//     final operationHistory = ref.read(operationHistoryProvider);
-//     final nextField = ref.read(nextFieldProvider);
+/// ピース(ツモ)操作フィールド
+/// Piece Operation Field
+class PieceOperationFieldWidget extends ConsumerWidget {
+  const PieceOperationFieldWidget({super.key});
 
-//     // ゲームぷよ種類設定
-//     late final GamePuyoType gamePuyoType;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    // プロバイダー
+    // ゲーム状態
+    final GameStateType gameState = ref.watch(gameStateProvider);
+    // ピース(ツモ)操作状態
+    final PieceOperationState pieceOperationState = ref.watch(pieceOperationStateProvider);
+    // 配ぷよ(ドロップセット)リスト
+    final DropSetState dropSetState = ref.watch(dropSetStateProvider);
 
-//     // 色設定
-//     late final PickColorType pickColorType;
+    // 現在手のドロップセットの取得
+    final DropSet? dropSet = dropSetState.getDropSet(pieceOperationState.currentMovePosition);
 
-//     if (pcsModeType == PCSModeType.free) {
-//       // ゲームモード設定
-//       final GameModeType gameModeType = GameModeType.values.byName(gameSettingInfoCurrent.value![GameSettingType.mode]!);
+    // ウィジェット
+    // 組ぷよフィールド : ぷよ
+    final List<Widget> widgetsPuyo = [];
 
-//       // ゲームぷよ種類設定
-//       gamePuyoType = gameModeType.getGamePuyoType();
+    // ドロップセットが取得できる場合
+    if (dropSet != null) {
+      // ぷよ形状の取得
+      final PuyoShapeType puyoShapeType = dropSet.puyoShapeType;
+      // ぷよ種類の取得(軸)
+      final Puyo puyoAxis = Puyo(puyoType: dropSet.getPuyoTypeAxis());
+      // ぷよ種類の取得(子)
+      final Puyo puyoChild = Puyo(puyoType: dropSet.getPuyoTypeChild());
 
-//       // 色設定
-//       pickColorType = PickColorType.values.byName(gameSettingInfoCurrent.value![GameSettingType.picksColors]!);
-//     } else {
-//       // ゲームぷよ種類設定
-//       gamePuyoType = GamePuyoType.values.byName(gameNazoSettingInfoCurrent.value![GameNazoSettingType.mode]!);
+      // 移動距離
+      double moveSteps = AppSettings.puyoSize / GameSettings.numOfMoveSteps;
 
-//       // 色設定
-//       pickColorType = PickColorType.five;
-//     }
+      // ぷよ形状別設定
+      switch (puyoShapeType) {
+        case PuyoShapeType.I:
+          // 軸
+          widgetsPuyo.add(
+            Positioned(
+              left: moveSteps * pieceOperationState.state.axisPositionDisplayX,
+              top: moveSteps * pieceOperationState.state.axisPositionDisplayY,
+              child: PuyoWidget(
+                puyo: puyoAxis,
+                size: AppSettings.puyoSize,
+              ),
+            ),
+          );
+          // 子
+          widgetsPuyo.add(
+            Positioned(
+              left: moveSteps * pieceOperationState.state.childPositionDisplayX,
+              top: moveSteps * pieceOperationState.state.childPositionDisplayY,
+              child: PuyoWidget(
+                puyo: puyoChild,
+                size: AppSettings.puyoSize,
+              ),
+            ),
+          );
+          break;
+        default:
+          break;
+      }
+    }
 
-//     // 現在手のぷよドロップセットの取得
-//     final PuyoDropSet? puyoDropSet = nextField.getPuyoDropSet(operationHistory.currentNextPosition);
-
-//     // ぷよサイズ
-//     final double dPuyoSize = basePuyoSize.minF;
-
-//     // プロバイダー
-//     // メインフィールド
-//     final List<List<PuyoPiece>> mainFieldState = ref.watch(mainFieldStateProvider);
-
-//     // ウィジェット
-//     // 組ぷよフィールド : ぷよ
-//     final List<Widget> widgetsPuyo = [];
-
-//     // ドロップセットが取得できる場合
-//     if (puyoDropSet != null) {
-//       // 現在手のぷよ形種類の取得
-//       final PuyoPieceType puyoPieceType = puyoDropSet.puyoPieceType;
-
-//       // 現在手のぷよ種類の取得
-//       final PuyoType puyoTypeParent = puyoDropSet.getPuyoTypeParent();
-//       final PuyoType puyoTypePChild = puyoDropSet.getPuyoTypePChild();
-//       final PuyoType puyoTypePieceO = puyoDropSet.getPuyoTypeAxis(operation.value.axisRotateType, pickColorType);
-
-//       // ぷよオペレーションウィジェット追加
-//       widget.add(
-//         PuyoOperationWidget(
-//           operationState: operation,
-//           gamePuyoType: gamePuyoType,
-//           puyoPieceType: puyoPieceType,
-//           puyoTypeParent: puyoTypeParent,
-//           puyoTypePChild: puyoTypePChild,
-//           puyoTypePieceO: puyoTypePieceO,
-//           size: dPuyoSize,
-//         ),
-//       );
-//     }
-
-//     // オペレーション : 開始中 のみ表示
-//     return SizedBox(
-//       width: dPuyoSize * AppSettings.iMainFieldX,
-//       height: dPuyoSize * AppSettings.iMainFieldY,
-//       child: Visibility(
-//         visible: operation.value.operationType == OperationType.start,
-//         maintainState: true,
-//         maintainAnimation: true,
-//         maintainSize: false,
-//         child: Stack(children: widget),
-//       ),
-//     );
-//   }
-// }
+    // ピース(ツモ)操作フィールド
+    return SizedBox(
+      width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
+      height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
+      child: Visibility(
+        visible: gameState == GameStateType.run,
+        maintainState: true,
+        maintainAnimation: true,
+        maintainSize: false,
+        child: Stack(children: widgetsPuyo),
+      ),
+    );
+  }
+}
