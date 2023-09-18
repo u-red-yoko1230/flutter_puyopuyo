@@ -20,7 +20,8 @@ class GameController {
   /// プレイヤーアクションリスト
   List<PlayerActionType> playerActionList = [];
 
-  Timer? playTimer;
+  /// 自由落下タイマー
+  Timer? freeFallTimer;
 
   /// ゲームロジック
   Future<void> gameLogic() async {
@@ -33,6 +34,20 @@ class GameController {
     // ゲーム状態 : 実行
     gameState.changeOfGameState(GameStateType.run);
 
+    // タイマーセット
+    // freeFallTimer?.cancel();
+    //   freeFallTimer = Timer.periodic(_SPEED[_level - 1], (t) {
+    //     loop();
+    //   });
+
+    // if (enable) {
+    //   freeFallTimer = Timer.periodic(_SPEED[_level - 1], (t) {
+    //     loop();
+    //   });
+    // } else {
+    //   freeFallTimer = null;
+    // }
+    
     // アクション
     while (gameState.getState() != GameStateType.none) {
       //#region ゲーム状態 : 実行時
@@ -45,16 +60,17 @@ class GameController {
     }
   }
 
+  // /// ゲーム開始/終了
   // void game(bool enable) {
   //   // タイマーキャンセル
-  //   playTimer?.cancel();
+  //   freeFallTimer?.cancel();
 
   //   if (enable) {
-  //     playTimer = Timer.periodic(_SPEED[_level - 1], (t) {
+  //     freeFallTimer = Timer.periodic(_SPEED[_level - 1], (t) {
   //       loop();
   //     });
   //   } else {
-  //     playTimer = null;
+  //     freeFallTimer = null;
   //   }
   // }
 

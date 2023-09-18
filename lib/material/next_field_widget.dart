@@ -55,11 +55,11 @@ class NextFieldWidget extends ConsumerWidget {
                 Column(
                   children: [
                     PuyoWidget(
-                      puyo: puyoAxis,
+                      puyo: puyoChild,
                       size: AppSettings.puyoSize,
                     ),
                     PuyoWidget(
-                      puyo: puyoChild,
+                      puyo: puyoAxis,
                       size: AppSettings.puyoSize,
                     ),
                   ],

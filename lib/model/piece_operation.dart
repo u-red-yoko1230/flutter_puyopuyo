@@ -61,12 +61,18 @@ extension PieceOperationExtension on PieceOperation {
   /// 子の位置(画面表示) : Y
   double get childPositionDisplayY => childPositionMoveY ?? childPositionY;
 
-  /// 子の位置取得
+  /// 子の位置取得 : X
   double getChildPositionX(RotationStateType rotationStateType, double axisPositionX) {
     return axisPositionX + (rotationStateType == RotationStateType.L ? (-GameSettings.numOfMoveSteps) : (rotationStateType == RotationStateType.R ? (GameSettings.numOfMoveSteps) : 0));
   }
 
+  /// 子の位置取得 : Y
   double getChildPositionY(RotationStateType rotationStateType, double axisPositionY) {
     return axisPositionY + (rotationStateType == RotationStateType.U ? (-GameSettings.numOfMoveSteps) : (rotationStateType == RotationStateType.D ? (GameSettings.numOfMoveSteps) : 0));
+  }
+
+  /// 落下
+  void fall() {
+    
   }
 }
