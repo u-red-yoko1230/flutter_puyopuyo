@@ -1,4 +1,3 @@
-import 'package:flutter_puyopuyo/enum/rotation_state_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../enum/puyo_shape_type.dart';
