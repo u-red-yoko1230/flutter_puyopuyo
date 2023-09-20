@@ -71,8 +71,4 @@ extension PieceOperationExtension on PieceOperation {
     return axisPositionY + (rotationStateType == RotationStateType.U ? (-GameSettings.numOfMoveSteps) : (rotationStateType == RotationStateType.D ? (GameSettings.numOfMoveSteps) : 0));
   }
 
-  /// 落下
-  void fall() {
-    
-  }
 }

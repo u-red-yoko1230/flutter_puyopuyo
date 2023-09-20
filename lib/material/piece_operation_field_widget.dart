@@ -29,7 +29,7 @@ class PieceOperationFieldWidget extends ConsumerWidget {
     final DropSetState dropSetState = ref.watch(dropSetStateProvider);
 
     // 現在手のドロップセットの取得
-    final DropSet? dropSet = dropSetState.getDropSet(pieceOperationState.currentMovePosition);
+    final DropSet? dropSet = dropSetState.getDropSet(pieceOperationState.currentHandPosition);
 
     // ウィジェット
     // 組ぷよフィールド : ぷよ

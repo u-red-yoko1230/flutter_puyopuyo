@@ -7,6 +7,7 @@ import '../enum/game_state_type.dart';
 import '../enum/player_action_type.dart';
 import '../enum/puyo_type.dart';
 import '../state/main_field_state.dart';
+import '../state/piece_operation_state.dart';
 
 /// ゲームコントローラープロバイダ
 /// game controller provider
@@ -28,6 +29,8 @@ class GameController {
     // プロバイダー
     // ゲーム状態
     final GameState gameState = ref.read(gameStateProvider.notifier);
+    // ピース(ツモ)操作状態
+    final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
     // メインフィールド
     final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
 
@@ -35,19 +38,11 @@ class GameController {
     gameState.changeOfGameState(GameStateType.run);
 
     // タイマーセット
-    // freeFallTimer?.cancel();
-    //   freeFallTimer = Timer.periodic(_SPEED[_level - 1], (t) {
-    //     loop();
-    //   });
+    freeFallTimer?.cancel();
+    freeFallTimer = Timer.periodic(Duration(seconds: 1), (t) {
+      pieceOperationState.pieceFall();
+    });
 
-    // if (enable) {
-    //   freeFallTimer = Timer.periodic(_SPEED[_level - 1], (t) {
-    //     loop();
-    //   });
-    // } else {
-    //   freeFallTimer = null;
-    // }
-    
     // アクション
     while (gameState.getState() != GameStateType.none) {
       //#region ゲーム状態 : 実行時
@@ -58,6 +53,7 @@ class GameController {
         await Future.delayed(const Duration(milliseconds: 1000));
       }
     }
+    freeFallTimer = null;
   }
 
   // /// ゲーム開始/終了

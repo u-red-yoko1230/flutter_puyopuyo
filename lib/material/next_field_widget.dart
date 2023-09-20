@@ -30,7 +30,7 @@ class NextFieldWidget extends ConsumerWidget {
     final DropSetState dropSetState = ref.watch(dropSetStateProvider);
 
     // 指定ネクストのドロップセットの取得
-    final DropSet? dropSet = dropSetState.getDropSet(pieceOperationState.currentMovePosition + nextMovePosition);
+    final DropSet? dropSet = dropSetState.getDropSet(pieceOperationState.currentHandPosition + nextMovePosition);
 
     // ウィジェット
     // ネクストフィールド : ぷよ

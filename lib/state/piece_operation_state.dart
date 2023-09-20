@@ -17,26 +17,32 @@ class PieceOperationState extends ChangeNotifier {
   /// ピース(ツモ)操作
   PieceOperation state = const PieceOperation();
 
-  /// 現在の手数
-  int currentMovePosition = 0;
+  /// 現在の手数位置
+  int currentHandPosition = 0;
 
   /// リセット
   void reset() {
     state = const PieceOperation();
-    currentMovePosition = 0;
+    currentHandPosition = 0;
 
     notifyListeners();
   }
 
-  /// 次
-  void moveToNext() {
-    currentMovePosition++;
+  /// 手数位置移動 : 次
+  void moveToNextHandPosition() {
+    currentHandPosition++;
     notifyListeners();
   }
 
-  /// 前
-  void backToPrev() {
-    currentMovePosition = max(currentMovePosition--, 0);
+  /// 手数位置移動 : 前
+  void backToPrevHandPosition() {
+    currentHandPosition = max(currentHandPosition--, 0);
+    notifyListeners();
+  }
+
+  /// ピース(ツモ)落下
+  void pieceFall() {
+    state = state.copyWith(axisPositionY: state.axisPositionY + 1);
     notifyListeners();
   }
 }
