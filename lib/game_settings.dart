@@ -1,6 +1,5 @@
 import 'enum/puyo_type.dart';
 
-/// game setup class
 /// ゲーム設定クラス
 class GameSettings {
   GameSettings._() {

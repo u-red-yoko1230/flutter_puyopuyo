@@ -1,4 +1,6 @@
 import 'package:flutter_puyopuyo/enum/rotation_state_type.dart';
+import 'package:flutter_puyopuyo/model/field_coordinate.dart';
+import 'package:flutter_puyopuyo/utility/game_utility.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../game_settings.dart';
@@ -71,4 +73,13 @@ extension PieceOperationExtension on PieceOperation {
     return axisPositionY + (rotationStateType == RotationStateType.U ? (-GameSettings.numOfMoveSteps) : (rotationStateType == RotationStateType.D ? (GameSettings.numOfMoveSteps) : 0));
   }
 
+  /// 軸のフィールド座標リスト取得
+  List<FieldCoordinate> getAxisPositionToFieldCoordinate() {
+    return GameUtility.getPositionToFieldCoordinate(axisPositionX, axisPositionY, true);
+  }
+
+  /// 子のフィールド座標リスト取得
+  List<FieldCoordinate> getChildPositionToFieldCoordinate() {
+    return GameUtility.getPositionToFieldCoordinate(childPositionX, childPositionY, false);
+  }
 }

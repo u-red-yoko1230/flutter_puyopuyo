@@ -66,7 +66,7 @@ class DropSetState extends ChangeNotifier {
         puyoTypeChild: puyoTypeChild,
       ));
 
-      // カラーリストインデックスカウント
+      // カラーリストインデックスカウントアップ(２色分)
       colorListIndex += 2;
     }
 

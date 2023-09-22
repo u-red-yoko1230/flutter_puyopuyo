@@ -18,10 +18,10 @@ extension RotationStateTypeExtension on RotationStateType {
     return RotationStateType.values[((index == 0 ? RotationStateType.values.length : index) - 1)];
   }
 
-  RotationStateType change(RotationOperationType operationRotateDirection) {
-    if (operationRotateDirection == RotationOperationType.R) {
+  RotationStateType change(RotationOperationType rotationOperationType) {
+    if (rotationOperationType == RotationOperationType.R) {
       return next();
-    } else if (operationRotateDirection == RotationOperationType.L) {
+    } else if (rotationOperationType == RotationOperationType.L) {
       return prev();
     }
     return this;
