@@ -39,7 +39,7 @@ class GameController {
 
     // タイマーセット
     freeFallTimer?.cancel();
-    freeFallTimer = Timer.periodic(Duration(milliseconds: 100), (t) {
+    freeFallTimer = Timer.periodic(const Duration(milliseconds: 100), (t) {
       pieceOperationState.pieceFall();
     });
 
