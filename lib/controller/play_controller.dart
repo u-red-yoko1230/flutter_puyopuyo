@@ -50,7 +50,7 @@ class GameController {
       //#endregion
       for (PuyoType puyoType in PuyoType.values) {
         mainFieldState.set(puyoType);
-        await Future.delayed(const Duration(milliseconds: 1000));
+        await Future.delayed(const Duration(milliseconds: 2000));
       }
     }
     freeFallTimer = null;
