@@ -32,7 +32,7 @@ class MainFieldState extends ChangeNotifier {
     // 衝突判定
     for (FieldCoordinate fieldCoordinate in fieldCoordinateList) {
       // フィールドの範囲外に存在する場合
-      if (fieldCoordinate.x < 0 && fieldCoordinate.x >= GameSettings.mainFieldXSize && fieldCoordinate.y < 0 && fieldCoordinate.y >= GameSettings.mainFieldYSize) {
+      if (fieldCoordinate.x < 0 || fieldCoordinate.x >= GameSettings.mainFieldXSize || fieldCoordinate.y < 0 || fieldCoordinate.y >= GameSettings.mainFieldYSize) {
         return true;
       }
       // 軸ぷよは１４段目に移動できない

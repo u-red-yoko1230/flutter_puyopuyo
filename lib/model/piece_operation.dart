@@ -73,6 +73,11 @@ extension PieceOperationExtension on PieceOperation {
     return axisPositionY + (rotationStateType == RotationStateType.U ? (-GameSettings.numOfMoveSteps) : (rotationStateType == RotationStateType.D ? (GameSettings.numOfMoveSteps) : 0));
   }
 
+  /// フィールド座標リスト取得
+  List<FieldCoordinate> getPositionToFieldCoordinate() {
+    return [...getAxisPositionToFieldCoordinate(), ...getChildPositionToFieldCoordinate()];
+  }
+
   /// 軸のフィールド座標リスト取得
   List<FieldCoordinate> getAxisPositionToFieldCoordinate() {
     return GameUtility.getPositionToFieldCoordinate(axisPositionX, axisPositionY, true);

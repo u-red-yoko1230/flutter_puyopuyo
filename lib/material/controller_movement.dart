@@ -1,7 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_puyopuyo/app_settings.dart';
+import 'package:flutter_puyopuyo/enum/rotation_operation_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../controller/play_controller.dart';
+import '../state/drop_set_state.dart';
+import '../state/main_field_state.dart';
+import '../state/piece_operation_state.dart';
 import 'custom_menu_button.dart';
 
 /// コントローラー（移動）
@@ -10,6 +16,14 @@ class ControllerMovement extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // プロバイダー
+    // プレイコントローラ
+    final GameController playController = ref.read(gameControllerProvider);
+    // メインフィールド
+    final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
+    //
+    final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
+
     return Container(
       width: AppSettings.ctrlBtnSize * 3,
       height: AppSettings.ctrlBtnSize * 3,
@@ -51,6 +65,10 @@ class ControllerMovement extends ConsumerWidget {
               icon: Icons.north,
               // iconSize: dIconSize,
               onTap: () {
+                mainFieldState.reset();
+                dropSetState.reset();
+                playController.gameLogic();
+
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 

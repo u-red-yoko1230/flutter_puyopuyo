@@ -15,7 +15,7 @@ class GameUtility {
     // X座標(横位置)FROM
     int xCoordinateFr = (positionX / GameSettings.numOfMoveSteps).floor();
     // X座標(横位置)TO
-    int xCoordinateTo = (positionY / GameSettings.numOfMoveSteps).ceil();
+    int xCoordinateTo = (positionX / GameSettings.numOfMoveSteps).ceil();
     // Y座標(縦位置)
     int yCoordinate = (GameSettings.mainFieldYSize - 1) - (positionY / GameSettings.numOfMoveSteps).ceil();
 

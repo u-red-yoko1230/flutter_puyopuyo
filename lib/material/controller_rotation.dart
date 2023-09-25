@@ -4,6 +4,8 @@ import 'package:flutter_puyopuyo/state/drop_set_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../controller/play_controller.dart';
+import '../enum/rotation_operation_type.dart';
+import '../state/piece_operation_state.dart';
 import 'custom_menu_button.dart';
 
 /// コントローラー（回転）
@@ -19,6 +21,7 @@ class ControllerRotation extends ConsumerWidget {
     // final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
     //
     final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
+    final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     return Container(
       width: AppSettings.ctrlBtnSize * 2,
@@ -40,8 +43,8 @@ class ControllerRotation extends ConsumerWidget {
               icon: Icons.rotate_left,
               // iconSize: dIconSize,
               onTap: () {
-                dropSetState.reset();
-                // // 操作モード : 開始時のみ要求を処理
+                pieceOperationState.pieceRotation(RotationOperationType.L);
+// // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 
                 // // 左回転
@@ -62,7 +65,7 @@ class ControllerRotation extends ConsumerWidget {
               icon: Icons.rotate_right,
               // iconSize: dIconSize,
               onTap: () {
-                playController.gameLogic();
+                pieceOperationState.pieceRotation(RotationOperationType.R);
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 

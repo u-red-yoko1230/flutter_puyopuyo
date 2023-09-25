@@ -48,10 +48,11 @@ class GameController {
       //#region ゲーム状態 : 実行時
       if (gameState.getState() == GameStateType.run) {}
       //#endregion
-      for (PuyoType puyoType in PuyoType.values) {
-        mainFieldState.set(puyoType);
-        await Future.delayed(const Duration(milliseconds: 2000));
-      }
+      // for (PuyoType puyoType in PuyoType.values) {
+      //   mainFieldState.set(puyoType);
+      //   await Future.delayed(const Duration(milliseconds: 2000));
+      // }
+        await Future.delayed(const Duration(microseconds: 1));
     }
     freeFallTimer = null;
   }
