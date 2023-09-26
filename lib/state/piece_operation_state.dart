@@ -54,6 +54,11 @@ class PieceOperationState extends ChangeNotifier {
   }
 
   /// ピース(ツモ)回転
+  void pieceMove() {
+    
+  }
+
+  /// ピース(ツモ)回転
   void pieceRotation(RotationOperationType rotationOperationType) {
     // プロバイダー
     // 配ぷよ(ドロップセット)リスト
