@@ -31,8 +31,8 @@ class GameController {
     final GameState gameState = ref.read(gameStateProvider.notifier);
     // ピース(ツモ)操作状態
     final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
-    // メインフィールド
-    final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
+    // // メインフィールド
+    // final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
 
     // ゲーム状態 : 実行
     gameState.changeOfGameState(GameStateType.run);
