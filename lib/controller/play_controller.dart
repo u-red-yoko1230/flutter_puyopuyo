@@ -5,8 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../enum/game_state_type.dart';
 import '../enum/player_action_type.dart';
-import '../enum/puyo_type.dart';
-import '../state/main_field_state.dart';
 import '../state/piece_operation_state.dart';
 
 /// ゲームコントローラープロバイダ
