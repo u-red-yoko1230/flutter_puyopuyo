@@ -7,6 +7,7 @@ import 'package:flutter_puyopuyo/game_settings.dart';
 import 'package:flutter_puyopuyo/state/drop_set_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../enum/move_operation_type.dart';
 import '../enum/rotation_operation_type.dart';
 import '../model/drop_set.dart';
 import '../model/piece_operation.dart';
@@ -53,9 +54,26 @@ class PieceOperationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// ピース(ツモ)回転
-  void pieceMove() {
-    
+  /// ピース(ツモ)移動
+  void pieceMove(MoveOperationType moveOperationType) {
+    // プロバイダー
+    // 配ぷよ(ドロップセット)リスト
+    final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
+
+    // 現在手のドロップセットの取得
+    final DropSet? dropSet = dropSetState.getDropSet(currentHandPosition);
+
+    // 移動後 : 軸位置 : X
+    double afterMoveAxisPositionX = 0.0;
+    // 移動後 : 軸位置 : Y
+    double afterMoveAxisPositionY = 0.0;
+    // 移動処理が正常終了した場合の状態リストを設定
+    List<PieceOperation> resultStateList = [];
+
+    // 形状別リスト設定
+    if (dropSet?.puyoShapeType == PuyoShapeType.I) {
+      
+    }
   }
 
   /// ピース(ツモ)回転
@@ -70,11 +88,11 @@ class PieceOperationState extends ChangeNotifier {
     final DropSet? dropSet = dropSetState.getDropSet(currentHandPosition);
 
     // 回転後 : 回転状態種類
-    RotationStateType rotateAfterRotationStateType = state.rotationStateType.change(rotationOperationType);
+    RotationStateType afterRotationStateType = state.rotationStateType.change(rotationOperationType);
     // 回転後 : 軸位置 : X
-    double rotateAfterAxisPositionX = 0.0;
+    double afterRotationAxisPositionX = 0.0;
     // 回転後 : 軸位置 : Y
-    double rotateAfterAxisPositionY = 0.0;
+    double afterRotationAxisPositionY = 0.0;
     // 回転処理が正常終了した場合の状態リストを設定
     List<PieceOperation> resultStateList = [];
 
@@ -82,54 +100,54 @@ class PieceOperationState extends ChangeNotifier {
     if (dropSet?.puyoShapeType == PuyoShapeType.I) {
       // 通常
       resultStateList.add(state.copyWith(
-        rotationStateType: rotateAfterRotationStateType,
+        rotationStateType: afterRotationStateType,
         quickTurnFlag: false,
       ));
       // 押出
-      switch (rotateAfterRotationStateType) {
+      switch (afterRotationStateType) {
         case RotationStateType.U:
-          rotateAfterAxisPositionY = rotateAfterAxisPositionY + GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionY = afterRotationAxisPositionY + GameSettings.numOfMoveSteps;
           break;
         case RotationStateType.R:
-          rotateAfterAxisPositionX = rotateAfterAxisPositionX - GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionX = afterRotationAxisPositionX - GameSettings.numOfMoveSteps;
           break;
         case RotationStateType.D:
-          rotateAfterAxisPositionY = rotateAfterAxisPositionY - GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionY = afterRotationAxisPositionY - GameSettings.numOfMoveSteps;
           break;
         case RotationStateType.L:
-          rotateAfterAxisPositionX = rotateAfterAxisPositionX + GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionX = afterRotationAxisPositionX + GameSettings.numOfMoveSteps;
           break;
       }
       resultStateList.add(state.copyWith(
-        rotationStateType: rotateAfterRotationStateType,
-        axisPositionX: state.axisPositionX + rotateAfterAxisPositionX,
-        axisPositionY: state.axisPositionY + rotateAfterAxisPositionY,
+        rotationStateType: afterRotationStateType,
+        axisPositionX: state.axisPositionX + afterRotationAxisPositionX,
+        axisPositionY: state.axisPositionY + afterRotationAxisPositionY,
         quickTurnFlag: false,
       ));
       // クイックターン
       if (state.quickTurnFlag) {
         // クイックターン後 : 回転状態種類
-        rotateAfterRotationStateType = rotateAfterRotationStateType.change(rotationOperationType);
+        afterRotationStateType = afterRotationStateType.change(rotationOperationType);
         // クイックターン : 通常
         resultStateList.add(state.copyWith(
-          rotationStateType: rotateAfterRotationStateType,
+          rotationStateType: afterRotationStateType,
           quickTurnFlag: false,
         ));
         // クイックターン : 押出
-        switch (rotateAfterRotationStateType) {
+        switch (afterRotationStateType) {
           case RotationStateType.U:
-            rotateAfterAxisPositionY += GameSettings.numOfMoveSteps;
+            afterRotationAxisPositionY += GameSettings.numOfMoveSteps;
             break;
           case RotationStateType.D:
-            rotateAfterAxisPositionY -= GameSettings.numOfMoveSteps;
+            afterRotationAxisPositionY -= GameSettings.numOfMoveSteps;
             break;
           default:
             break;
         }
         resultStateList.add(state.copyWith(
-          rotationStateType: rotateAfterRotationStateType,
-          axisPositionX: state.axisPositionX + rotateAfterAxisPositionX,
-          axisPositionY: state.axisPositionY + rotateAfterAxisPositionY,
+          rotationStateType: afterRotationStateType,
+          axisPositionX: state.axisPositionX + afterRotationAxisPositionX,
+          axisPositionY: state.axisPositionY + afterRotationAxisPositionY,
           quickTurnFlag: false,
         ));
       } else {
