@@ -54,8 +54,8 @@ class PieceOperationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// ピース(ツモ)移動
-  void pieceMove(MoveOperationType moveOperationType) {
+  /// ピース(ツモ)横移動
+  void pieceHorizontalMove(MoveOperationType moveOperationType) {
     // プロバイダー
     // 配ぷよ(ドロップセット)リスト
     final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
@@ -70,10 +70,30 @@ class PieceOperationState extends ChangeNotifier {
     // 移動処理が正常終了した場合の状態リストを設定
     List<PieceOperation> resultStateList = [];
 
-    // 形状別リスト設定
-    if (dropSet?.puyoShapeType == PuyoShapeType.I) {
-      
-    }
+    // // 形状別リスト設定
+    // if (dropSet?.puyoShapeType == PuyoShapeType.I) {
+    //   // 押出
+    //   switch (afterRotationStateType) {
+    //     case RotationStateType.U:
+    //       afterRotationAxisPositionY = afterRotationAxisPositionY + GameSettings.numOfMoveSteps;
+    //       break;
+    //     case RotationStateType.R:
+    //       afterRotationAxisPositionX = afterRotationAxisPositionX - GameSettings.numOfMoveSteps;
+    //       break;
+    //     case RotationStateType.D:
+    //       afterRotationAxisPositionY = afterRotationAxisPositionY - GameSettings.numOfMoveSteps;
+    //       break;
+    //     case RotationStateType.L:
+    //       afterRotationAxisPositionX = afterRotationAxisPositionX + GameSettings.numOfMoveSteps;
+    //       break;
+    //   }
+    //   resultStateList.add(state.copyWith(
+    //     rotationStateType: afterRotationStateType,
+    //     axisPositionX: state.axisPositionX + afterRotationAxisPositionX,
+    //     axisPositionY: state.axisPositionY + afterRotationAxisPositionY,
+    //     quickTurnFlag: false,
+    //   ));
+    // }
   }
 
   /// ピース(ツモ)回転
