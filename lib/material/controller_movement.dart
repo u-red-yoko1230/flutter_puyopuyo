@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_puyopuyo/app_settings.dart';
+import 'package:flutter_puyopuyo/enum/move_operation_type.dart';
 import 'package:flutter_puyopuyo/enum/rotation_operation_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,6 +24,7 @@ class ControllerMovement extends ConsumerWidget {
     final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
     //
     final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
+    final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     return Container(
       width: AppSettings.ctrlBtnSize * 3,
@@ -44,6 +46,7 @@ class ControllerMovement extends ConsumerWidget {
               icon: Icons.west,
               // iconSize: dIconSize,
               onTap: () {
+                pieceOperationState.pieceHorizontalMove(MoveOperationType.L);
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 
@@ -118,6 +121,7 @@ class ControllerMovement extends ConsumerWidget {
               icon: Icons.east,
               // iconSize: dIconSize,
               onTap: () {
+                pieceOperationState.pieceHorizontalMove(MoveOperationType.R);
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 

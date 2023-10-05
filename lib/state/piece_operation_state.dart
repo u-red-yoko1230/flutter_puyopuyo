@@ -56,44 +56,51 @@ class PieceOperationState extends ChangeNotifier {
 
   /// ピース(ツモ)横移動
   void pieceHorizontalMove(MoveOperationType moveOperationType) {
+    assert([MoveOperationType.R, MoveOperationType.L].contains(moveOperationType));
+
     // プロバイダー
     // 配ぷよ(ドロップセット)リスト
     final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
+    // メインフィールド
+    final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
 
     // 現在手のドロップセットの取得
     final DropSet? dropSet = dropSetState.getDropSet(currentHandPosition);
 
     // 移動後 : 軸位置 : X
     double afterMoveAxisPositionX = 0.0;
-    // 移動後 : 軸位置 : Y
-    double afterMoveAxisPositionY = 0.0;
+    // // 移動後 : 軸位置 : Y
+    // double afterMoveAxisPositionY = 0.0;
     // 移動処理が正常終了した場合の状態リストを設定
     List<PieceOperation> resultStateList = [];
 
-    // // 形状別リスト設定
-    // if (dropSet?.puyoShapeType == PuyoShapeType.I) {
-    //   // 押出
-    //   switch (afterRotationStateType) {
-    //     case RotationStateType.U:
-    //       afterRotationAxisPositionY = afterRotationAxisPositionY + GameSettings.numOfMoveSteps;
-    //       break;
-    //     case RotationStateType.R:
-    //       afterRotationAxisPositionX = afterRotationAxisPositionX - GameSettings.numOfMoveSteps;
-    //       break;
-    //     case RotationStateType.D:
-    //       afterRotationAxisPositionY = afterRotationAxisPositionY - GameSettings.numOfMoveSteps;
-    //       break;
-    //     case RotationStateType.L:
-    //       afterRotationAxisPositionX = afterRotationAxisPositionX + GameSettings.numOfMoveSteps;
-    //       break;
-    //   }
-    //   resultStateList.add(state.copyWith(
-    //     rotationStateType: afterRotationStateType,
-    //     axisPositionX: state.axisPositionX + afterRotationAxisPositionX,
-    //     axisPositionY: state.axisPositionY + afterRotationAxisPositionY,
-    //     quickTurnFlag: false,
-    //   ));
-    // }
+    // 形状別リスト設定
+    if (dropSet?.puyoShapeType == PuyoShapeType.I) {
+      // 横移動
+      switch (moveOperationType) {
+        case MoveOperationType.R:
+          afterMoveAxisPositionX = afterMoveAxisPositionX + GameSettings.numOfMoveSteps;
+        case MoveOperationType.L:
+          afterMoveAxisPositionX = afterMoveAxisPositionX - GameSettings.numOfMoveSteps;
+        case MoveOperationType.U:
+        case MoveOperationType.D:
+          return;
+      }
+      resultStateList.add(state.copyWith(
+        axisPositionX: state.axisPositionX + afterMoveAxisPositionX,
+        quickTurnFlag: false,
+      ));
+    }
+
+    // 状態リストの精査
+    for (PieceOperation resultState in resultStateList) {
+      // メインフィールドとの衝突チェック
+      if (!mainFieldState.collisionCheck(resultState.getPositionToFieldCoordinate())) {
+        state = resultState;
+        notifyListeners();
+        return;
+      }
+    }
   }
 
   /// ピース(ツモ)回転
@@ -126,22 +133,26 @@ class PieceOperationState extends ChangeNotifier {
       // 押出
       switch (afterRotationStateType) {
         case RotationStateType.U:
-          afterRotationAxisPositionY = afterRotationAxisPositionY + GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionX = state.axisPositionX;
+          afterRotationAxisPositionY = state.axisPositionY + GameSettings.numOfMoveSteps;
           break;
         case RotationStateType.R:
-          afterRotationAxisPositionX = afterRotationAxisPositionX - GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionX = state.axisPositionX - GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionY = state.axisPositionY;
           break;
         case RotationStateType.D:
-          afterRotationAxisPositionY = afterRotationAxisPositionY - GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionX = state.axisPositionX;
+          afterRotationAxisPositionY = state.axisPositionY - GameSettings.numOfMoveSteps;
           break;
         case RotationStateType.L:
-          afterRotationAxisPositionX = afterRotationAxisPositionX + GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionX = state.axisPositionX + GameSettings.numOfMoveSteps;
+          afterRotationAxisPositionY = state.axisPositionY;
           break;
       }
       resultStateList.add(state.copyWith(
         rotationStateType: afterRotationStateType,
-        axisPositionX: state.axisPositionX + afterRotationAxisPositionX,
-        axisPositionY: state.axisPositionY + afterRotationAxisPositionY,
+        axisPositionX: afterRotationAxisPositionX,
+        axisPositionY: afterRotationAxisPositionY,
         quickTurnFlag: false,
       ));
       // クイックターン
@@ -156,18 +167,22 @@ class PieceOperationState extends ChangeNotifier {
         // クイックターン : 押出
         switch (afterRotationStateType) {
           case RotationStateType.U:
-            afterRotationAxisPositionY += GameSettings.numOfMoveSteps;
+            afterRotationAxisPositionX = state.axisPositionX;
+            afterRotationAxisPositionY = state.axisPositionY + GameSettings.numOfMoveSteps;
             break;
           case RotationStateType.D:
-            afterRotationAxisPositionY -= GameSettings.numOfMoveSteps;
+            afterRotationAxisPositionX = state.axisPositionX;
+            afterRotationAxisPositionY = state.axisPositionY - GameSettings.numOfMoveSteps;
             break;
           default:
+            afterRotationAxisPositionX = state.axisPositionX;
+            afterRotationAxisPositionY = state.axisPositionY;
             break;
         }
         resultStateList.add(state.copyWith(
           rotationStateType: afterRotationStateType,
-          axisPositionX: state.axisPositionX + afterRotationAxisPositionX,
-          axisPositionY: state.axisPositionY + afterRotationAxisPositionY,
+          axisPositionX: afterRotationAxisPositionX,
+          axisPositionY: afterRotationAxisPositionY,
           quickTurnFlag: false,
         ));
       } else {
