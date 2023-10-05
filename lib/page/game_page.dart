@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_puyopuyo/material/piece_operation_field_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
@@ -8,8 +9,8 @@ import '../material/controller_rotation.dart';
 import '../material/main_field_widget.dart';
 import '../material/next_field_widget.dart';
 
-class PlayPage extends ConsumerWidget {
-  const PlayPage({super.key});
+class GamePage extends ConsumerWidget {
+  const GamePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +28,10 @@ class PlayPage extends ConsumerWidget {
             children: [
               ControllerMovement(),
               SizedBox(width: 20),
-              MainFieldWidget(),
+              Stack(children: [
+                MainFieldWidget(),
+                PieceOperationFieldWidget(),
+              ]),
               SizedBox(width: 20),
               SizedBox(
                 width: AppSettings.puyoSize * 3,
@@ -39,8 +43,9 @@ class PlayPage extends ConsumerWidget {
                   children: [
                     Column(
                       children: [
-                        NextFieldWidget(paddingTop: 20, paddingBottom: 20),
-                        NextFieldWidget(paddingTop: 20, paddingBottom: 20),
+                        NextFieldWidget(nextMovePosition: 0, paddingTop: 20, paddingBottom: 20),
+                        NextFieldWidget(nextMovePosition: 1, paddingTop: 20, paddingBottom: 20),
+                        NextFieldWidget(nextMovePosition: 2, paddingTop: 20, paddingBottom: 20),
                       ],
                     ),
                     Column(

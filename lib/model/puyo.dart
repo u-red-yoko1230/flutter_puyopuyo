@@ -1,51 +1,42 @@
 import 'dart:ui';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../app_settings.dart';
 import '../enum/puyo_type.dart';
 
-part 'puyo_piece.freezed.dart';
+part 'puyo.freezed.dart';
 
-/// ぷよ
-/// puyo
+/// 組ぷよ
 @freezed
-class PuyoPiece with _$PuyoPiece {
-  const PuyoPiece._();
-  const factory PuyoPiece({
+class Puyo with _$Puyo {
+  const Puyo._();
+  const factory Puyo({
     /// ぷよ種類
-    /// Puyo Type
     @Default(PuyoType.n) PuyoType puyoType,
-  }) = _PuyoPiece;
+  }) = _Puyo;
 
-  const factory PuyoPiece.field({
+  const factory Puyo.field({
     /// ぷよ種類
-    /// Puyo Type
     @Default(PuyoType.n) PuyoType puyoType,
 
     /// 落下したばかり
-    /// Just dropped
     @Default(false) bool justDropped,
 
     /// 連結 : 上
-    /// Connected : Top
     @Default(false) bool connectedTop,
 
     /// 連結 : 右
-    /// Connected : Right
     @Default(false) bool connectedRight,
 
     /// 連結 : 右
-    /// Connected : Bottom
     @Default(false) bool connectedBottom,
 
     /// 連結 : 左
-    /// Connected : Left
     @Default(false) bool connectedLeft,
   }) = PuyoField;
 }
 
-extension PuyoPieceExtension on PuyoPiece {
+extension PuyoExtension on Puyo {
   /// スプライト矩形座標の取得
   Rect getSpriteSourceRect() {
     return when(
