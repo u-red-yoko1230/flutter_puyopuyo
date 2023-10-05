@@ -3,13 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
-import '../model/puyo_piece.dart';
 import '../state/main_field_state.dart';
 import 'cross_mark_widget.dart';
 import 'puyo_widget.dart';
 
 /// メインフィールド
-/// main field
 class MainFieldWidget extends ConsumerWidget {
   const MainFieldWidget({super.key});
 
@@ -17,7 +15,7 @@ class MainFieldWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // プロバイダー
     // メインフィールド
-    final List<List<PuyoPiece>> mainField = ref.watch(mainFieldStateProvider);
+    final MainFieldState mainFieldState = ref.watch(mainFieldStateProvider);
 
     // ウィジェット
     // メインフィールド : ぷよ
@@ -33,14 +31,14 @@ class MainFieldWidget extends ConsumerWidget {
     );
 
     // メインフィールドぷよ設定
-    mainField.asMap().forEach((x, px) {
+    mainFieldState.mainFieldList.asMap().forEach((x, px) {
       px.asMap().forEach((y, py) {
         widgetsPuyo.add(
           Positioned(
             left: AppSettings.puyoSize * x,
             top: AppSettings.puyoSize * ((GameSettings.mainFieldYSize - 1) - y),
             child: PuyoWidget(
-              puyoPiece: py,
+              puyo: py,
               size: AppSettings.puyoSize,
             ),
           ),
@@ -49,7 +47,6 @@ class MainFieldWidget extends ConsumerWidget {
     });
 
     // メインフィールド
-    // main field
     return SizedBox(
       width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
       height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
@@ -58,7 +55,6 @@ class MainFieldWidget extends ConsumerWidget {
           Column(
             children: [
               // 非表示メインフィールド
-              // hidden main field
               Container(
                 width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
                 height: AppSettings.puyoSize * GameSettings.hideMainFieldYSize,
@@ -75,7 +71,6 @@ class MainFieldWidget extends ConsumerWidget {
                 ),
               ),
               // 表示メインフィールド
-              // Display main field
               Container(
                 width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
                 height: AppSettings.puyoSize * (GameSettings.mainFieldYSize - GameSettings.hideMainFieldYSize),
@@ -94,7 +89,6 @@ class MainFieldWidget extends ConsumerWidget {
             ],
           ),
           // ぷよの表示
-          // Display of Puyo
           Container(
             width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
             height: AppSettings.puyoSize * GameSettings.mainFieldYSize,

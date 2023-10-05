@@ -1,21 +1,18 @@
 import 'dart:ui';
 
 /// アプリ設定クラス
-/// game setup class
 class AppSettings {
   AppSettings._() {
     throw AssertionError("private Constructor");
   }
 
   /// ぷよサイズ
-  /// Puyo size
   static const double puyoSize = 40.0;
 
   /// コントローラーボタンサイズ
-  /// Controller Button Size
   static const double ctrlBtnSize = 50.0;
 
-  /// ImageList:ゲーム画像座標設定
+  /// ゲーム画像座標設定
   static final spriteSourceRect = {
     "puyo_r_0000.png":     const Rect.fromLTWH(   0,    0,  50,  50),
     "puyo_r_0100.png":     const Rect.fromLTWH(  50,    0,  50,  50),
@@ -122,5 +119,4 @@ class AppSettings {
     "success.png":         const Rect.fromLTWH( 700,  800, 300, 100),
     "cross_mark.png":      const Rect.fromLTWH( 750,    0,  50,  50),
   };
-  // @formatter:on
 }

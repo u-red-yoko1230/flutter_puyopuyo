@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/model/puyo_piece.dart';
 
-import '../model/puyo_field.dart';
+import '../model/puyo.dart';
 import '../sprite_painter.dart';
 
 /// ぷよ
 class PuyoWidget extends StatelessWidget {
   const PuyoWidget({
     super.key,
-    required this.puyoPiece,
+    required this.puyo,
     required this.size,
     this.opacity = 1.0,
   }) : super();
 
-  final PuyoPiece puyoPiece;
+  final Puyo puyo;
   final double size;
   final double opacity;
 
@@ -25,7 +24,7 @@ class PuyoWidget extends StatelessWidget {
         width: size,
         height: size,
         child: CustomPaint(
-          painter: SpritePainter(puyoPiece.getSpriteSourceRect()),
+          painter: SpritePainter(puyo.getSpriteSourceRect()),
         ),
       ),
     );
