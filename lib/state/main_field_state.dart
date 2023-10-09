@@ -48,6 +48,25 @@ class MainFieldState extends ChangeNotifier {
     return false;
   }
 
+  /// 接地
+  void grounding(List<PuyoType> puyoTypeList, List<FieldCoordinate> fieldCoordinateList) {
+    assert(puyoTypeList.length == fieldCoordinateList.length);
+
+    // 接地リスト設定
+    for (int i in puyoTypeList.asMap().keys) {
+      // ぷよ種類
+      PuyoType puyoType = puyoTypeList[i];
+      // フィールド座標
+      FieldCoordinate fieldCoordinate = fieldCoordinateList[i];
+
+      // 設定
+      mainFieldList[fieldCoordinate.x][fieldCoordinate.y] = Puyo.field(puyoType: puyoType);
+    }
+
+    // 反映
+    notifyListeners();
+  }
+
   /// セット
   void set(PuyoType puyoType) {
     mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => Puyo.field(puyoType: puyoType)));

@@ -20,13 +20,16 @@ class GameSettings {
 
   /// 移動ステップ数
   /// Number of movement steps
-  static const double numOfMoveSteps = 20;
+  static const double numOfMoveSteps = 20.0;
 
   /// 消去可能ぷよ数
   static const int numOfErasablePuyos = 4;
 
   /// ループあたりの手数
   static const int numOfMovesPerLoop = 128;
+
+  /// 接地待機時間
+  static const double groundStandbyTime = 10.0;
 
   /// ぷよ(色)リスト
   /// Puyo (color) list
