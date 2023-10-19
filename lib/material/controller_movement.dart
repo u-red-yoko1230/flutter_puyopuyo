@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/app_settings.dart';
-import 'package:flutter_puyopuyo/enum/move_operation_type.dart';
-import 'package:flutter_puyopuyo/enum/rotation_operation_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../controller/play_controller.dart';
+import '../app_settings.dart';
+import '../controller/game_controller.dart';
+import '../enum/move_operation_type.dart';
 import '../state/drop_set_state.dart';
 import '../state/main_field_state.dart';
 import '../state/piece_operation_state.dart';
@@ -105,6 +103,9 @@ class ControllerMovement extends ConsumerWidget {
 
                 // // 処理のキャンセル設定
                 // operation.mainOperation(OperationRequestType.softDrop, isCancel: true);
+              },
+              onTap: () {
+                mainFieldState.test2();
               },
             ),
           ),

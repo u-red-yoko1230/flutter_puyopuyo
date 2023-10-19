@@ -29,6 +29,11 @@ mixin _$Puyo {
             bool connectedBottom,
             bool connectedLeft)
         field,
+    required TResult Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)
+        connection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,6 +42,11 @@ mixin _$Puyo {
     TResult? Function(PuyoType puyoType, bool justDropped, bool connectedTop,
             bool connectedRight, bool connectedBottom, bool connectedLeft)?
         field,
+    TResult? Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)?
+        connection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -45,6 +55,11 @@ mixin _$Puyo {
     TResult Function(PuyoType puyoType, bool justDropped, bool connectedTop,
             bool connectedRight, bool connectedBottom, bool connectedLeft)?
         field,
+    TResult Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)?
+        connection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -52,18 +67,21 @@ mixin _$Puyo {
   TResult map<TResult extends Object?>(
     TResult Function(_Puyo value) $default, {
     required TResult Function(PuyoField value) field,
+    required TResult Function(PuyoConnection value) connection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Puyo value)? $default, {
     TResult? Function(PuyoField value)? field,
+    TResult? Function(PuyoConnection value)? connection,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Puyo value)? $default, {
     TResult Function(PuyoField value)? field,
+    TResult Function(PuyoConnection value)? connection,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -178,6 +196,11 @@ class _$_Puyo extends _Puyo {
             bool connectedBottom,
             bool connectedLeft)
         field,
+    required TResult Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)
+        connection,
   }) {
     return $default(puyoType);
   }
@@ -189,6 +212,11 @@ class _$_Puyo extends _Puyo {
     TResult? Function(PuyoType puyoType, bool justDropped, bool connectedTop,
             bool connectedRight, bool connectedBottom, bool connectedLeft)?
         field,
+    TResult? Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)?
+        connection,
   }) {
     return $default?.call(puyoType);
   }
@@ -200,6 +228,11 @@ class _$_Puyo extends _Puyo {
     TResult Function(PuyoType puyoType, bool justDropped, bool connectedTop,
             bool connectedRight, bool connectedBottom, bool connectedLeft)?
         field,
+    TResult Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)?
+        connection,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -213,6 +246,7 @@ class _$_Puyo extends _Puyo {
   TResult map<TResult extends Object?>(
     TResult Function(_Puyo value) $default, {
     required TResult Function(PuyoField value) field,
+    required TResult Function(PuyoConnection value) connection,
   }) {
     return $default(this);
   }
@@ -222,6 +256,7 @@ class _$_Puyo extends _Puyo {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Puyo value)? $default, {
     TResult? Function(PuyoField value)? field,
+    TResult? Function(PuyoConnection value)? connection,
   }) {
     return $default?.call(this);
   }
@@ -231,6 +266,7 @@ class _$_Puyo extends _Puyo {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Puyo value)? $default, {
     TResult Function(PuyoField value)? field,
+    TResult Function(PuyoConnection value)? connection,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -404,6 +440,11 @@ class _$PuyoField extends PuyoField {
             bool connectedBottom,
             bool connectedLeft)
         field,
+    required TResult Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)
+        connection,
   }) {
     return field(puyoType, justDropped, connectedTop, connectedRight,
         connectedBottom, connectedLeft);
@@ -416,6 +457,11 @@ class _$PuyoField extends PuyoField {
     TResult? Function(PuyoType puyoType, bool justDropped, bool connectedTop,
             bool connectedRight, bool connectedBottom, bool connectedLeft)?
         field,
+    TResult? Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)?
+        connection,
   }) {
     return field?.call(puyoType, justDropped, connectedTop, connectedRight,
         connectedBottom, connectedLeft);
@@ -428,6 +474,11 @@ class _$PuyoField extends PuyoField {
     TResult Function(PuyoType puyoType, bool justDropped, bool connectedTop,
             bool connectedRight, bool connectedBottom, bool connectedLeft)?
         field,
+    TResult Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)?
+        connection,
     required TResult orElse(),
   }) {
     if (field != null) {
@@ -442,6 +493,7 @@ class _$PuyoField extends PuyoField {
   TResult map<TResult extends Object?>(
     TResult Function(_Puyo value) $default, {
     required TResult Function(PuyoField value) field,
+    required TResult Function(PuyoConnection value) connection,
   }) {
     return field(this);
   }
@@ -451,6 +503,7 @@ class _$PuyoField extends PuyoField {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Puyo value)? $default, {
     TResult? Function(PuyoField value)? field,
+    TResult? Function(PuyoConnection value)? connection,
   }) {
     return field?.call(this);
   }
@@ -460,6 +513,7 @@ class _$PuyoField extends PuyoField {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Puyo value)? $default, {
     TResult Function(PuyoField value)? field,
+    TResult Function(PuyoConnection value)? connection,
     required TResult orElse(),
   }) {
     if (field != null) {
@@ -501,5 +555,223 @@ abstract class PuyoField extends Puyo {
   @override
   @JsonKey(ignore: true)
   _$$PuyoFieldCopyWith<_$PuyoField> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PuyoConnectionCopyWith<$Res> implements $PuyoCopyWith<$Res> {
+  factory _$$PuyoConnectionCopyWith(
+          _$PuyoConnection value, $Res Function(_$PuyoConnection) then) =
+      __$$PuyoConnectionCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {PuyoType puyoType,
+      List<FieldCoordinate> baseAndAdjacentPuyoList,
+      List<FieldCoordinate> baseAndAdjacentOjamaList});
+}
+
+/// @nodoc
+class __$$PuyoConnectionCopyWithImpl<$Res>
+    extends _$PuyoCopyWithImpl<$Res, _$PuyoConnection>
+    implements _$$PuyoConnectionCopyWith<$Res> {
+  __$$PuyoConnectionCopyWithImpl(
+      _$PuyoConnection _value, $Res Function(_$PuyoConnection) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? puyoType = null,
+    Object? baseAndAdjacentPuyoList = null,
+    Object? baseAndAdjacentOjamaList = null,
+  }) {
+    return _then(_$PuyoConnection(
+      puyoType: null == puyoType
+          ? _value.puyoType
+          : puyoType // ignore: cast_nullable_to_non_nullable
+              as PuyoType,
+      baseAndAdjacentPuyoList: null == baseAndAdjacentPuyoList
+          ? _value.baseAndAdjacentPuyoList
+          : baseAndAdjacentPuyoList // ignore: cast_nullable_to_non_nullable
+              as List<FieldCoordinate>,
+      baseAndAdjacentOjamaList: null == baseAndAdjacentOjamaList
+          ? _value.baseAndAdjacentOjamaList
+          : baseAndAdjacentOjamaList // ignore: cast_nullable_to_non_nullable
+              as List<FieldCoordinate>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$PuyoConnection extends PuyoConnection {
+  _$PuyoConnection(
+      {this.puyoType = PuyoType.n,
+      this.baseAndAdjacentPuyoList = const [],
+      this.baseAndAdjacentOjamaList = const []})
+      : super._();
+
+  /// ぷよ種類
+  @override
+  @JsonKey()
+  final PuyoType puyoType;
+
+  /// 基点及び隣接するぷよリスト
+  @override
+  @JsonKey()
+  final List<FieldCoordinate> baseAndAdjacentPuyoList;
+
+  /// 基点及び隣接するおじゃまぷよリスト初期化
+  @override
+  @JsonKey()
+  final List<FieldCoordinate> baseAndAdjacentOjamaList;
+
+  @override
+  String toString() {
+    return 'Puyo.connection(puyoType: $puyoType, baseAndAdjacentPuyoList: $baseAndAdjacentPuyoList, baseAndAdjacentOjamaList: $baseAndAdjacentOjamaList)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PuyoConnection &&
+            (identical(other.puyoType, puyoType) ||
+                other.puyoType == puyoType) &&
+            const DeepCollectionEquality().equals(
+                other.baseAndAdjacentPuyoList, baseAndAdjacentPuyoList) &&
+            const DeepCollectionEquality().equals(
+                other.baseAndAdjacentOjamaList, baseAndAdjacentOjamaList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      puyoType,
+      const DeepCollectionEquality().hash(baseAndAdjacentPuyoList),
+      const DeepCollectionEquality().hash(baseAndAdjacentOjamaList));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PuyoConnectionCopyWith<_$PuyoConnection> get copyWith =>
+      __$$PuyoConnectionCopyWithImpl<_$PuyoConnection>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(PuyoType puyoType) $default, {
+    required TResult Function(
+            PuyoType puyoType,
+            bool justDropped,
+            bool connectedTop,
+            bool connectedRight,
+            bool connectedBottom,
+            bool connectedLeft)
+        field,
+    required TResult Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)
+        connection,
+  }) {
+    return connection(
+        puyoType, baseAndAdjacentPuyoList, baseAndAdjacentOjamaList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(PuyoType puyoType)? $default, {
+    TResult? Function(PuyoType puyoType, bool justDropped, bool connectedTop,
+            bool connectedRight, bool connectedBottom, bool connectedLeft)?
+        field,
+    TResult? Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)?
+        connection,
+  }) {
+    return connection?.call(
+        puyoType, baseAndAdjacentPuyoList, baseAndAdjacentOjamaList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(PuyoType puyoType)? $default, {
+    TResult Function(PuyoType puyoType, bool justDropped, bool connectedTop,
+            bool connectedRight, bool connectedBottom, bool connectedLeft)?
+        field,
+    TResult Function(
+            PuyoType puyoType,
+            List<FieldCoordinate> baseAndAdjacentPuyoList,
+            List<FieldCoordinate> baseAndAdjacentOjamaList)?
+        connection,
+    required TResult orElse(),
+  }) {
+    if (connection != null) {
+      return connection(
+          puyoType, baseAndAdjacentPuyoList, baseAndAdjacentOjamaList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_Puyo value) $default, {
+    required TResult Function(PuyoField value) field,
+    required TResult Function(PuyoConnection value) connection,
+  }) {
+    return connection(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Puyo value)? $default, {
+    TResult? Function(PuyoField value)? field,
+    TResult? Function(PuyoConnection value)? connection,
+  }) {
+    return connection?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Puyo value)? $default, {
+    TResult Function(PuyoField value)? field,
+    TResult Function(PuyoConnection value)? connection,
+    required TResult orElse(),
+  }) {
+    if (connection != null) {
+      return connection(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PuyoConnection extends Puyo {
+  factory PuyoConnection(
+      {final PuyoType puyoType,
+      final List<FieldCoordinate> baseAndAdjacentPuyoList,
+      final List<FieldCoordinate> baseAndAdjacentOjamaList}) = _$PuyoConnection;
+  PuyoConnection._() : super._();
+
+  @override
+
+  /// ぷよ種類
+  PuyoType get puyoType;
+
+  /// 基点及び隣接するぷよリスト
+  List<FieldCoordinate> get baseAndAdjacentPuyoList;
+
+  /// 基点及び隣接するおじゃまぷよリスト初期化
+  List<FieldCoordinate> get baseAndAdjacentOjamaList;
+  @override
+  @JsonKey(ignore: true)
+  _$$PuyoConnectionCopyWith<_$PuyoConnection> get copyWith =>
       throw _privateConstructorUsedError;
 }

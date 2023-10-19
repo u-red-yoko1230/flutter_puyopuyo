@@ -7,4 +7,5 @@ enum PuyoType {
   y, // Yellow
   p, // Purple
   o, // Ojama
+  w, // Wall
 }

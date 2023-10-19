@@ -322,7 +322,7 @@ class _$_FieldCoordinateCollisionCheck extends _FieldCoordinateCollisionCheck {
   @override
   final int y;
 
-  /// 軸である
+  /// 軸ぷよである
   @override
   @JsonKey()
   final bool isAxis;
@@ -432,7 +432,7 @@ abstract class _FieldCoordinateCollisionCheck extends FieldCoordinate {
   /// 座標 : Y
   int get y;
 
-  /// 軸である
+  /// 軸ぷよである
   bool get isAxis;
   @override
   @JsonKey(ignore: true)

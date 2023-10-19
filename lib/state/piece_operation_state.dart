@@ -1,18 +1,18 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/enum/puyo_shape_type.dart';
-import 'package:flutter_puyopuyo/enum/puyo_type.dart';
-import 'package:flutter_puyopuyo/enum/rotation_state_type.dart';
-import 'package:flutter_puyopuyo/game_settings.dart';
-import 'package:flutter_puyopuyo/model/field_coordinate.dart';
-import 'package:flutter_puyopuyo/state/drop_set_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../enum/move_operation_type.dart';
+import '../enum/puyo_shape_type.dart';
+import '../enum/puyo_type.dart';
 import '../enum/rotation_operation_type.dart';
+import '../enum/rotation_state_type.dart';
+import '../game_settings.dart';
 import '../model/drop_set.dart';
+import '../model/field_coordinate.dart';
 import '../model/piece_operation.dart';
+import 'drop_set_state.dart';
 import 'main_field_state.dart';
 
 /// ピース(ツモ)操作状態プロバイダ
@@ -115,8 +115,17 @@ class PieceOperationState extends ChangeNotifier {
         puyoTypeList.add(dropSet.puyoTypeChild);
         fieldCoordinateList.add(state.getChildPositionToFieldCoordinate()[0]);
 
-        // 接地
-        mainFieldState.grounding(puyoTypeList, fieldCoordinateList);
+        // 配置処理
+        mainFieldState.placement(puyoTypeList, fieldCoordinateList, justDropped: true);
+
+        // 接地 - ピース(ツモ)処理
+        mainFieldState.groundingPiece();
+
+        // 接地 - フィールド
+        mainFieldState.groundingField();
+
+        // 連鎖
+        mainFieldState.chain();
       }
 
       // 手数位置移動 : 次

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/app_settings.dart';
-import 'package:flutter_puyopuyo/state/drop_set_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../controller/play_controller.dart';
+import '../app_settings.dart';
+import '../controller/game_controller.dart';
 import '../enum/rotation_operation_type.dart';
+import '../state/drop_set_state.dart';
 import '../state/piece_operation_state.dart';
 import 'custom_menu_button.dart';
 

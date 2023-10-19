@@ -5,6 +5,7 @@ import '../enum/puyo_type.dart';
 import '../game_settings.dart';
 import '../model/field_coordinate.dart';
 import '../model/puyo.dart';
+import '../utility/game_utility.dart';
 
 /// メインフィールド状態プロバイダ
 final mainFieldStateProvider = ChangeNotifierProvider((ref) => MainFieldState(ref));
@@ -16,12 +17,12 @@ class MainFieldState extends ChangeNotifier {
   final Ref ref;
 
   /// メインフィールドリスト
-  List<List<Puyo>> mainFieldList = [];
+  List<List<PuyoField>> mainFieldList = [];
 
   /// リセット
   void reset() {
     /// メインフィールドリスト設定
-    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const Puyo()));
+    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const PuyoField()));
 
     // 反映
     notifyListeners();
@@ -48,8 +49,12 @@ class MainFieldState extends ChangeNotifier {
     return false;
   }
 
-  /// 接地
-  void grounding(List<PuyoType> puyoTypeList, List<FieldCoordinate> fieldCoordinateList) {
+  /// 配置
+  void placement(
+    List<PuyoType> puyoTypeList,
+    List<FieldCoordinate> fieldCoordinateList, {
+    bool justDropped = false,
+  }) {
     assert(puyoTypeList.length == fieldCoordinateList.length);
 
     // 接地リスト設定
@@ -60,11 +65,134 @@ class MainFieldState extends ChangeNotifier {
       FieldCoordinate fieldCoordinate = fieldCoordinateList[i];
 
       // 設定
-      mainFieldList[fieldCoordinate.x][fieldCoordinate.y] = Puyo.field(puyoType: puyoType);
+      mainFieldList[fieldCoordinate.x][fieldCoordinate.y] = PuyoField(puyoType: puyoType, justDropped: justDropped);
     }
 
     // 反映
     notifyListeners();
+  }
+
+  /// 接地 - ピース(ツモ)
+  void groundingPiece() {
+    // メインフィールドを列ごとに精査
+    for (List<Puyo> mainFieldYList in mainFieldList) {
+      // 落下元ぷよの位置
+      int iFrom = 0;
+      // 落下先ぷよの位置
+      int iTo = -1;
+
+      while (iFrom >= 0) {
+        // 配置されたぷよのチェック
+        iFrom = mainFieldYList.indexWhere((p) => p.getJustDropped(), iFrom);
+
+        // 存在する場合
+        if (iFrom >= 0) {
+          // 対象ぷよ
+          Puyo puyo = mainFieldYList[iFrom].copyWith();
+
+          // 対象以下からぷよもしくは地面(-1)の位置特定
+          iTo = iFrom == 0 ? -1 : mainFieldYList.lastIndexWhere((p) => ![PuyoType.n].contains(p.puyoType), iFrom - 1);
+          // 落下可能位置を設定(+1)
+          iTo += 1;
+
+          // 落下元ぷよの設定
+          mainFieldYList[iFrom] = const Puyo.field(puyoType: PuyoType.n);
+          // 落下先ぷよの設定
+          mainFieldYList[iTo] = Puyo.field(puyoType: puyo.puyoType);
+
+          // 精査先+1
+          iFrom += 1;
+        }
+      }
+    }
+
+    // 反映
+    notifyListeners();
+  }
+
+  /// 接地 - フィールド
+  void groundingField() {
+    // メインフィールドを列ごとに精査
+    for (List<Puyo> mainFieldYList in mainFieldList) {
+      // 落下元ぷよの位置
+      int iFrom = 0;
+      // 落下先ぷよの位置
+      int iTo = -1;
+      while (iFrom >= 0) {
+        // 配置されたぷよのチェック
+        iFrom = mainFieldYList.indexWhere((p) => ![PuyoType.w, PuyoType.n].contains(p.puyoType), iFrom);
+
+        // 存在する場合
+        if (iFrom >= 0) {
+          // 対象ぷよ
+          Puyo puyo = mainFieldYList[iFrom].copyWith();
+
+          // 対象以下から壁もしくは地面(-1)の位置特定
+          iTo = iFrom == 0 ? -1 : mainFieldYList.lastIndexWhere((p) => ![PuyoType.n].contains(p.puyoType), iFrom - 1);
+          // 落下可能位置を設定(+1)
+          iTo += 1;
+
+          // 落下元ぷよの設定
+          mainFieldYList[iFrom] = const Puyo.field(puyoType: PuyoType.n);
+          // 落下先ぷよの設定
+          mainFieldYList[iTo] = Puyo.field(puyoType: puyo.puyoType);
+
+          // 精査先+1
+          iFrom += 1;
+        }
+      }
+    }
+
+    // 反映
+    notifyListeners();
+  }
+
+  /// 消去
+  bool erase() {
+    // 消去フラグ
+    bool eraseFlg = false;
+
+    // ぷよ連結情報リスト
+    List<PuyoConnection> puyoConnectionList = [];
+
+    // ぷよ連結処理
+    GameUtility.connection(mainFieldList, puyoConnectionList: puyoConnectionList);
+
+    // ぷよ消去処理
+    for (PuyoConnection puyoConnection in puyoConnectionList) {
+      // 連結数が消去可能数を超える場合
+      if (puyoConnection.baseAndAdjacentPuyoList.length >= GameSettings.numOfErasablePuyos) {
+        // 消去フラグ有効
+        eraseFlg = true;
+
+        // ぷよ消去
+        for (FieldCoordinate f in puyoConnection.baseAndAdjacentPuyoList) {
+          // メインフィールドから消去
+          mainFieldList[f.x][f.y] = const PuyoField(puyoType: PuyoType.n);
+        }
+        // おじゃまぷよ消去
+        for (FieldCoordinate f in puyoConnection.baseAndAdjacentOjamaList) {
+          // メインフィールドから消去
+          if (mainFieldList[f.x][f.y].puyoType == PuyoType.o) {
+            mainFieldList[f.x][f.y] = const PuyoField(puyoType: PuyoType.n);
+            // } else if (mainFieldList[f.x][f.y].puyoType == PuyoType.k) {
+            //   mainFieldList[f.x][f.y] = const PuyoField(puyoType: PuyoType.o);
+          }
+        }
+      }
+    }
+
+    // 反映
+    notifyListeners();
+
+    return eraseFlg;
+  }
+
+  /// 連鎖
+  void chain() {
+    while (erase()) {
+      groundingField();
+    }
   }
 
   // /// 操作ぷよ落下処理
@@ -451,7 +579,7 @@ class MainFieldState extends ChangeNotifier {
   //         value[v[0]][v[1]] = PuyoField(puyoType: PuyoType.n);
   //       });
 
-  //       // お邪魔系ぷよ消去
+  //       // おじゃま系ぷよ消去
   //       conPosOjama[key].asMap().forEach((k, v) {
   //         if (value[v[0]][v[1]].puyoType == PuyoType.o) {
   //           // アニメーションリストの設定
@@ -539,16 +667,37 @@ class MainFieldState extends ChangeNotifier {
 
   /// セット
   void set(PuyoType puyoType) {
-    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => Puyo.field(puyoType: puyoType)));
+    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => PuyoField(puyoType: puyoType)));
     notifyListeners();
   }
 
   /// テスト
   Future<void> test() async {
-    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const Puyo.field(puyoType: PuyoType.r)));
+    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const PuyoField(puyoType: PuyoType.r)));
     notifyListeners();
     await Future.delayed(const Duration(milliseconds: 5000));
-    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const Puyo.field(puyoType: PuyoType.g)));
+    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const PuyoField(puyoType: PuyoType.g)));
+    notifyListeners();
+  }
+
+  /// テスト
+  Future<void> test2() async {
+    mainFieldList = List.generate(GameSettings.mainFieldXSize, (_) => List.generate(GameSettings.mainFieldYSize, (_) => const PuyoField(puyoType: PuyoType.n)));
+    mainFieldList[0][3] = const PuyoField(puyoType: PuyoType.r);
+    mainFieldList[0][5] = const PuyoField(puyoType: PuyoType.g);
+    mainFieldList[0][6] = const PuyoField(puyoType: PuyoType.b);
+    mainFieldList[0][8] = const PuyoField(puyoType: PuyoType.y);
+    mainFieldList[1][3] = const PuyoField(puyoType: PuyoType.r);
+    mainFieldList[1][4] = const PuyoField(puyoType: PuyoType.r);
+    mainFieldList[2][3] = const PuyoField(puyoType: PuyoType.r);
+    mainFieldList[5][0] = const PuyoField(puyoType: PuyoType.r);
+    mainFieldList[5][1] = const PuyoField(puyoType: PuyoType.g);
+    mainFieldList[5][2] = const PuyoField(puyoType: PuyoType.g);
+    mainFieldList[5][3] = const PuyoField(puyoType: PuyoType.g);
+    mainFieldList[5][4] = const PuyoField(puyoType: PuyoType.g);
+    mainFieldList[5][5] = const PuyoField(puyoType: PuyoType.r);
+    mainFieldList[5][6] = const PuyoField(puyoType: PuyoType.r);
+    mainFieldList[5][7] = const PuyoField(puyoType: PuyoType.r);
     notifyListeners();
   }
 }
