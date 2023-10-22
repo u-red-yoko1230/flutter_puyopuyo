@@ -106,9 +106,9 @@ class PieceOperationState extends ChangeNotifier {
       List<FieldCoordinate> fieldCoordinateList = [];
 
       // 形状別リスト設定
-      if (dropSet?.puyoShapeType == PuyoShapeType.I) {
+      if (dropSet.puyoShapeType == PuyoShapeType.I) {
         // 軸ぷよ設定
-        puyoTypeList.add(dropSet!.puyoTypeAxis);
+        puyoTypeList.add(dropSet.puyoTypeAxis);
         fieldCoordinateList.add(state.getAxisPositionToFieldCoordinate()[0]);
 
         // 子ぷよ設定
@@ -155,7 +155,7 @@ class PieceOperationState extends ChangeNotifier {
     List<PieceOperation> resultStateList = [];
 
     // 形状別リスト設定
-    if (dropSet?.puyoShapeType == PuyoShapeType.I) {
+    if (dropSet.puyoShapeType == PuyoShapeType.I) {
       // 横移動
       switch (moveOperationType) {
         case MoveOperationType.R:
@@ -205,7 +205,7 @@ class PieceOperationState extends ChangeNotifier {
     List<PieceOperation> resultStateList = [];
 
     // 形状別リスト設定
-    if (dropSet?.puyoShapeType == PuyoShapeType.I) {
+    if (dropSet.puyoShapeType == PuyoShapeType.I) {
       // 通常
       resultStateList.add(state.copyWith(
         rotationStateType: afterRotationStateType,

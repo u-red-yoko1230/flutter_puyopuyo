@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
-import '../controller/game_controller.dart';
 import '../enum/move_operation_type.dart';
-import '../state/drop_set_state.dart';
 import '../state/main_field_state.dart';
 import '../state/piece_operation_state.dart';
 import 'custom_menu_button.dart';
@@ -17,11 +15,11 @@ class ControllerMovement extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // プロバイダー
     // プレイコントローラ
-    final GameController playController = ref.read(gameControllerProvider);
+    // final GameController playController = ref.read(gameControllerProvider);
     // メインフィールド
     final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
     //
-    final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
+    // final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
     final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     return Container(
@@ -66,9 +64,6 @@ class ControllerMovement extends ConsumerWidget {
               icon: Icons.north,
               // iconSize: dIconSize,
               onTap: () {
-                mainFieldState.reset();
-                dropSetState.reset();
-                playController.gameLogic();
 
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;

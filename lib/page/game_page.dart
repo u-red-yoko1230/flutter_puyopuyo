@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
+import '../material/controller_menu.dart';
 import '../material/controller_movement.dart';
 import '../material/controller_rotation.dart';
 import '../material/main_field_widget.dart';
@@ -50,6 +51,7 @@ class GamePage extends ConsumerWidget {
                     ),
                     Column(
                       children: [
+                        ControllerMenu(),
                         Text('Erased Puyo : ${1}'),
                         Text('Max Chains : ${2}'),
                         Text('Score : ${'00000000'}'),
