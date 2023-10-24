@@ -19,6 +19,11 @@ class GameController {
   /// プレイヤーアクションリスト
   List<PlayerActionType> playerActionList = [];
 
+  /// testTime
+  int time = 50;
+  int time1 = 50;
+  int time2 = 25;
+
   /// 自由落下タイマー
   Timer? freeFallTimer;
 
@@ -37,20 +42,31 @@ class GameController {
 
     // タイマーセット
     freeFallTimer?.cancel();
-    freeFallTimer = Timer.periodic(const Duration(milliseconds: 50), (t) {
+    freeFallTimer = Timer.periodic(Duration(milliseconds: time), (t) {
       pieceOperationState.pieceFall();
     });
 
     // アクション
     while (gameState.getState() != GameStateType.none) {
       //#region ゲーム状態 : 実行時
-      if (gameState.getState() == GameStateType.run) {}
+      if (gameState.getState() == GameStateType.run) {
+        if (playerActionList.contains(PlayerActionType.crossKeyDown)) {
+          time = time2;
+          // freeFallTimer?.cancel();
+    freeFallTimer = null;
+          freeFallTimer = Timer.periodic(Duration(milliseconds: time), (t) {
+            pieceOperationState.pieceFall();
+          });
+        } else {
+          time = time1;
+        }
+      }
       //#endregion
       // for (PuyoType puyoType in PuyoType.values) {
       //   mainFieldState.set(puyoType);
       //   await Future.delayed(const Duration(milliseconds: 2000));
       // }
-        await Future.delayed(const Duration(microseconds: 1));
+      await Future.delayed(const Duration(microseconds: 1));
     }
     freeFallTimer = null;
   }
