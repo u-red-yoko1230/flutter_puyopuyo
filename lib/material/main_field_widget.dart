@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
@@ -9,10 +10,19 @@ import 'puyo_widget.dart';
 
 /// メインフィールド
 class MainFieldWidget extends ConsumerWidget {
-  const MainFieldWidget({super.key});
+  const MainFieldWidget({
+    super.key,
+    required this.orientation,
+  });
+
+  final Orientation orientation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // サイズ設定
+    // ぷよサイズ
+    final double puyoSize = AppSettings.basePuyoSize[orientation]!.r;
+
     // プロバイダー
     // メインフィールド
     final MainFieldState mainFieldState = ref.watch(mainFieldStateProvider);
@@ -23,10 +33,10 @@ class MainFieldWidget extends ConsumerWidget {
 
     // クロスマーク設定
     widgetsPuyo.add(
-      const Positioned(
-        left: AppSettings.puyoSize * 2,
-        top: AppSettings.puyoSize * ((GameSettings.mainFieldYSize - 1) - 11),
-        child: CrossMarkWidget(size: AppSettings.puyoSize),
+      Positioned(
+        left: puyoSize * 2,
+        top: puyoSize * ((GameSettings.mainFieldYSize - 1) - 11),
+        child: CrossMarkWidget(size: puyoSize),
       ),
     );
 
@@ -35,11 +45,11 @@ class MainFieldWidget extends ConsumerWidget {
       px.asMap().forEach((y, py) {
         widgetsPuyo.add(
           Positioned(
-            left: AppSettings.puyoSize * x,
-            top: AppSettings.puyoSize * ((GameSettings.mainFieldYSize - 1) - y),
+            left: puyoSize * x,
+            top: puyoSize * ((GameSettings.mainFieldYSize - 1) - y),
             child: PuyoWidget(
               puyo: py,
-              size: AppSettings.puyoSize,
+              size: puyoSize,
             ),
           ),
         );
@@ -48,16 +58,16 @@ class MainFieldWidget extends ConsumerWidget {
 
     // メインフィールド
     return SizedBox(
-      width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
-      height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
+      width: puyoSize * GameSettings.mainFieldXSize,
+      height: puyoSize * GameSettings.mainFieldYSize,
       child: Stack(
         children: [
           Column(
             children: [
               // 非表示メインフィールド
               Container(
-                width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
-                height: AppSettings.puyoSize * GameSettings.hideMainFieldYSize,
+                width: puyoSize * GameSettings.mainFieldXSize,
+                height: puyoSize * GameSettings.hideMainFieldYSize,
                 decoration: BoxDecoration(
                   color: Colors.lightBlue,
                   boxShadow: [
@@ -72,8 +82,8 @@ class MainFieldWidget extends ConsumerWidget {
               ),
               // 表示メインフィールド
               Container(
-                width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
-                height: AppSettings.puyoSize * (GameSettings.mainFieldYSize - GameSettings.hideMainFieldYSize),
+                width: puyoSize * GameSettings.mainFieldXSize,
+                height: puyoSize * (GameSettings.mainFieldYSize - GameSettings.hideMainFieldYSize),
                 decoration: BoxDecoration(
                   color: Colors.grey,
                   boxShadow: [
@@ -90,8 +100,8 @@ class MainFieldWidget extends ConsumerWidget {
           ),
           // ぷよの表示
           Container(
-            width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
-            height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
+            width: puyoSize * GameSettings.mainFieldXSize,
+            height: puyoSize * GameSettings.mainFieldYSize,
             color: Colors.transparent,
             child: Stack(
               children: widgetsPuyo,

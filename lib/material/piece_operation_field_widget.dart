@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app_settings.dart';
 import '../enum/game_state_type.dart';
@@ -16,10 +17,19 @@ import 'puyo_widget.dart';
 /// ピース(ツモ)操作フィールド
 /// Piece Operation Field
 class PieceOperationFieldWidget extends ConsumerWidget {
-  const PieceOperationFieldWidget({super.key});
+  const PieceOperationFieldWidget({
+    super.key,
+    required this.orientation,
+  });
+
+  final Orientation orientation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // サイズ設定
+    // ぷよサイズ
+    final double puyoSize = AppSettings.basePuyoSize[orientation]!.r;
+
     // プロバイダー
     // ゲーム状態
     final GameStateType gameState = ref.watch(gameStateProvider);
@@ -45,7 +55,7 @@ class PieceOperationFieldWidget extends ConsumerWidget {
       final Puyo puyoChild = Puyo(puyoType: dropSet.getPuyoTypeChild());
 
       // 移動距離
-      double moveSteps = AppSettings.puyoSize / GameSettings.numOfMoveSteps;
+      double moveSteps = puyoSize / GameSettings.numOfMoveSteps;
 
       // ぷよ形状別設定
       switch (puyoShapeType) {
@@ -57,7 +67,7 @@ class PieceOperationFieldWidget extends ConsumerWidget {
               top: moveSteps * pieceOperationState.state.axisPositionDisplayY,
               child: PuyoWidget(
                 puyo: puyoAxis,
-                size: AppSettings.puyoSize,
+                size: puyoSize,
               ),
             ),
           );
@@ -68,7 +78,7 @@ class PieceOperationFieldWidget extends ConsumerWidget {
               top: moveSteps * pieceOperationState.state.childPositionDisplayY,
               child: PuyoWidget(
                 puyo: puyoChild,
-                size: AppSettings.puyoSize,
+                size: puyoSize,
               ),
             ),
           );
@@ -80,8 +90,8 @@ class PieceOperationFieldWidget extends ConsumerWidget {
 
     // ピース(ツモ)操作フィールド
     return SizedBox(
-      width: AppSettings.puyoSize * GameSettings.mainFieldXSize,
-      height: AppSettings.puyoSize * GameSettings.mainFieldYSize,
+      width: puyoSize * GameSettings.mainFieldXSize,
+      height: puyoSize * GameSettings.mainFieldYSize,
       child: Visibility(
         visible: gameState == GameStateType.run,
         maintainState: true,

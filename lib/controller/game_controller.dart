@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_puyopuyo/game_settings.dart';
 import 'package:flutter_puyopuyo/state/game_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,7 +23,7 @@ class GameController {
   /// testTime
   int time = 50;
   int time1 = 50;
-  int time2 = 25;
+  int time2 = 40;
 
   /// 自由落下タイマー
   Timer? freeFallTimer;
@@ -50,16 +51,16 @@ class GameController {
     while (gameState.getState() != GameStateType.none) {
       //#region ゲーム状態 : 実行時
       if (gameState.getState() == GameStateType.run) {
-        if (playerActionList.contains(PlayerActionType.crossKeyDown)) {
-          time = time2;
-          // freeFallTimer?.cancel();
-    freeFallTimer = null;
-          freeFallTimer = Timer.periodic(Duration(milliseconds: time), (t) {
-            pieceOperationState.pieceFall();
-          });
-        } else {
-          time = time1;
-        }
+        // if (playerActionList.contains(PlayerActionType.crossKeyDown)) {
+        //   time = time2;
+        //   // freeFallTimer?.cancel();
+        //   freeFallTimer = null;
+        //   freeFallTimer = Timer.periodic(Duration(milliseconds: time), (t) {
+        //     pieceOperationState.pieceFall();
+        //   });
+        // } else {
+        //   time = time1;
+        // }
       }
       //#endregion
       // for (PuyoType puyoType in PuyoType.values) {
@@ -71,6 +72,18 @@ class GameController {
     freeFallTimer = null;
   }
 
+  /// 高速落下
+  void fastFall(bool enable) {
+    // プロバイダー
+    // ピース(ツモ)操作状態
+    final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
+
+    freeFallTimer?.cancel();
+    freeFallTimer = null;
+    freeFallTimer = Timer.periodic(Duration(microseconds: enable ? GameSettings.fastFallSpeed : GameSettings.freeFallSpeed), (t) {
+      pieceOperationState.pieceFall();
+    });
+  }
   // /// ゲーム開始/終了
   // void game(bool enable) {
   //   // タイマーキャンセル

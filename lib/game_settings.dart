@@ -31,6 +31,12 @@ class GameSettings {
   /// 接地待機時間
   static const double groundStandbyTime = 10.0;
 
+  /// 自由落下速度(μs)
+  static const int freeFallSpeed = 50000;
+
+  /// 高速落下速度(μs)
+  static const int fastFallSpeed = 5000;
+
   /// ぷよ(色)リスト
   static const List<PuyoType> puyoColorList = [
     PuyoType.r,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app_settings.dart';
 import '../enum/puyo_shape_type.dart';
@@ -12,17 +13,23 @@ import 'puyo_widget.dart';
 class NextFieldWidget extends ConsumerWidget {
   const NextFieldWidget({
     super.key,
+    required this.orientation,
     required this.nextMovePosition,
     this.paddingTop,
     this.paddingBottom,
   });
 
+  final Orientation orientation;
   final int nextMovePosition;
   final double? paddingTop;
   final double? paddingBottom;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // サイズ設定
+    // ぷよサイズ
+    final double puyoSize = AppSettings.basePuyoSize[orientation]!.r;
+
     // プロバイダー
     // ピース(ツモ)操作状態
     final PieceOperationState pieceOperationState = ref.watch(pieceOperationStateProvider);
@@ -56,11 +63,11 @@ class NextFieldWidget extends ConsumerWidget {
                   children: [
                     PuyoWidget(
                       puyo: puyoChild,
-                      size: AppSettings.puyoSize,
+                      size: puyoSize,
                     ),
                     PuyoWidget(
                       puyo: puyoAxis,
-                      size: AppSettings.puyoSize,
+                      size: puyoSize,
                     ),
                   ],
                 ),
@@ -100,8 +107,8 @@ class NextFieldWidget extends ConsumerWidget {
       children: [
         SizedBox(height: paddingTop),
         Container(
-          width: AppSettings.puyoSize * 2,
-          height: AppSettings.puyoSize * 2,
+          width: puyoSize * 2,
+          height: puyoSize * 2,
           decoration: BoxDecoration(
             color: Colors.grey,
             borderRadius: BorderRadius.circular(5.0),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app_settings.dart';
 import '../enum/rotation_operation_type.dart';
@@ -8,10 +9,19 @@ import 'custom_menu_button.dart';
 
 /// コントローラー（回転）
 class ControllerRotation extends ConsumerWidget {
-  const ControllerRotation({super.key});
+  const ControllerRotation({
+    super.key,
+    required this.orientation,
+  });
+
+  final Orientation orientation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // サイズ設定
+    // コントローラーボタンサイズ
+    final double ctrlBtnSize = AppSettings.baseCtrlBtnSize[orientation]!.r;
+
     // プロバイダー
     // プレイコントローラ
     // final GameController playController = ref.read(gameControllerProvider);
@@ -22,8 +32,8 @@ class ControllerRotation extends ConsumerWidget {
     final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     return Container(
-      width: AppSettings.ctrlBtnSize * 2,
-      height: AppSettings.ctrlBtnSize * 2,
+      width: ctrlBtnSize * 2,
+      height: ctrlBtnSize * 2,
       color: Colors.amberAccent,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -33,8 +43,8 @@ class ControllerRotation extends ConsumerWidget {
             left: 0,
             bottom: 0,
             child: CustomMenuButton(
-              width: AppSettings.ctrlBtnSize,
-              height: AppSettings.ctrlBtnSize,
+              width: ctrlBtnSize,
+              height: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,
@@ -55,8 +65,8 @@ class ControllerRotation extends ConsumerWidget {
             top: 0,
             right: 0,
             child: CustomMenuButton(
-              width: AppSettings.ctrlBtnSize,
-              height: AppSettings.ctrlBtnSize,
+              width: ctrlBtnSize,
+              height: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,

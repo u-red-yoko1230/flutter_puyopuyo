@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_puyopuyo/enum/player_action_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app_settings.dart';
 import '../controller/game_controller.dart';
@@ -13,10 +14,19 @@ import 'custom_menu_button.dart';
 
 /// コントローラー（移動）
 class ControllerMovement extends ConsumerWidget {
-  const ControllerMovement({super.key});
+  const ControllerMovement({
+    super.key,
+    required this.orientation,
+  });
+
+  final Orientation orientation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // サイズ設定
+    // コントローラーボタンサイズ
+    final double ctrlBtnSize = AppSettings.baseCtrlBtnSize[orientation]!.r;
+
     // プロバイダー
     // プレイコントローラ
     final GameController playController = ref.read(gameControllerProvider);
@@ -27,8 +37,8 @@ class ControllerMovement extends ConsumerWidget {
     final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     return Container(
-      width: AppSettings.ctrlBtnSize * 3,
-      height: AppSettings.ctrlBtnSize * 3,
+      width: ctrlBtnSize * 3,
+      height: ctrlBtnSize * 3,
       color: Colors.amberAccent,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -36,10 +46,10 @@ class ControllerMovement extends ConsumerWidget {
           // 左移動
           Positioned(
             left: 0,
-            top: AppSettings.ctrlBtnSize,
+            top: ctrlBtnSize,
             child: CustomMenuButton(
-              width: AppSettings.ctrlBtnSize,
-              height: AppSettings.ctrlBtnSize,
+              width: ctrlBtnSize,
+              height: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,
@@ -57,11 +67,11 @@ class ControllerMovement extends ConsumerWidget {
           ),
           // クイックドロップ
           Positioned(
-            left: AppSettings.ctrlBtnSize,
+            left: ctrlBtnSize,
             top: 0,
             child: CustomMenuButton(
-              width: AppSettings.ctrlBtnSize,
-              height: AppSettings.ctrlBtnSize,
+              width: ctrlBtnSize,
+              height: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,
@@ -78,11 +88,11 @@ class ControllerMovement extends ConsumerWidget {
           ),
           // ソフトドロップ
           Positioned(
-            left: AppSettings.ctrlBtnSize,
+            left: ctrlBtnSize,
             bottom: 0,
             child: CustomMenuButton(
-              width: AppSettings.ctrlBtnSize,
-              height: AppSettings.ctrlBtnSize,
+              width: ctrlBtnSize,
+              height: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,
@@ -90,33 +100,10 @@ class ControllerMovement extends ConsumerWidget {
               // iconSize: dIconSize,
               // onTap: () => operation.mainOperation(OperationRequestType.softDrop),
               onTapDown: () {
-                playController.freeFallTimer?.cancel();
-                playController.freeFallTimer = null;
-                playController.freeFallTimer = Timer.periodic(Duration(microseconds: 1000), (t) {
-                  pieceOperationState.pieceFall();
-                });
-                // if (!playController.playerActionList.contains(PlayerActionType.crossKeyDown)) {
-                //   playController.playerActionList.add(PlayerActionType.crossKeyDown);
-                // }
-                // // 操作モード : 開始時のみ要求を処理
-                // if (operation.value.operationType != OperationType.start) return;
-                // // ソフトドロップ
-                // operation.mainOperation(OperationRequestType.softDrop);
+                playController.fastFall(true);
               },
               onTapUp: () {
-                playController.freeFallTimer?.cancel();
-                playController.freeFallTimer = null;
-                playController.freeFallTimer = Timer.periodic(Duration(milliseconds: 50), (t) {
-                  pieceOperationState.pieceFall();
-                });
-                // if (playController.playerActionList.contains(PlayerActionType.crossKeyDown)) {
-                //   playController.playerActionList.remove(PlayerActionType.crossKeyDown);
-                // }
-                // // 操作モード : 開始時のみ要求を処理
-                // if (operation.value.operationType != OperationType.start) return;
-
-                // // 処理のキャンセル設定
-                // operation.mainOperation(OperationRequestType.softDrop, isCancel: true);
+                playController.fastFall(false);
               },
               // onTap: () {
               //   mainFieldState.test2();
@@ -126,10 +113,10 @@ class ControllerMovement extends ConsumerWidget {
           // 右移動
           Positioned(
             right: 0,
-            top: AppSettings.ctrlBtnSize,
+            top: ctrlBtnSize,
             child: CustomMenuButton(
-              width: AppSettings.ctrlBtnSize,
-              height: AppSettings.ctrlBtnSize,
+              width: ctrlBtnSize,
+              height: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,

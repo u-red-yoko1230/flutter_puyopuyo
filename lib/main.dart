@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_puyopuyo/page/game_page.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'app_settings.dart';
 
 /// スプライトイメージデータ
 late ui.Image image;
@@ -24,13 +27,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter PuyoPuyo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const GamePage(),
+    Orientation orientation = MediaQuery.of(context).orientation;
+    return AnnotatedRegion(
+      value: SystemUiOverlayStyle.light,
+      child: ScreenUtilInit(
+          designSize: orientation == Orientation.portrait
+              ? const Size(
+                  AppSettings.baseScreenSizeWidth,
+                  AppSettings.baseScreenSizeHeight,
+                )
+              : const Size(
+                  AppSettings.baseScreenSizeWidth,
+                  AppSettings.baseScreenSizeHeight,
+                ),
+          minTextAdapt: true,
+          splitScreenMode: false,
+          builder: (context, child) {
+            return MaterialApp(
+              title: 'Flutter PuyoPuyo',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+                useMaterial3: true,
+              ),
+              home: GamePage(orientation: orientation),
+            );
+          }),
     );
   }
 }
