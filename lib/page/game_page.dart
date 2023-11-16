@@ -59,10 +59,10 @@ class GamePage extends ConsumerWidget {
                     ),
                     Column(
                       children: [
-                        // ControllerMenu(),
-                        // Text('Erased Puyo : ${1}'),
-                        // Text('Max Chains : ${2}'),
-                        // Text('Score : ${'00000000'}'),
+                        ControllerMenu(orientation: orientation),
+                        Text('Erased Puyo : ${1}'),
+                        Text('Max Chains : ${2}'),
+                        Text('Score : ${'00000000'}'),
                       ],
                     ),
                   ],

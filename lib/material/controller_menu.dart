@@ -39,53 +39,53 @@ class ControllerMenu extends ConsumerWidget {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-//           // 左回転
-//           Positioned(
-//             left: 0,
-//             bottom: 0,
-//             child: CustomMenuButton(
-//               width: ctrlBtnSize,
-//               height: ctrlBtnSize,
-//               // color: btnBackgroundColor,
-//               // splashColor: btnForegroundColor,
-//               // indicateColor: btnIndicateColor,
-//               icon: Icons.stop,
-//               // iconSize: dIconSize,
-//               onTap: () {
-//                 // pieceOperationState.pieceRotation(RotationOperationType.L);
-// // // 操作モード : 開始時のみ要求を処理
-//                 // if (operation.value.operationType != OperationType.start) return;
+          // 左回転
+          Positioned(
+            left: 0,
+            bottom: 0,
+            child: CustomMenuButton(
+              width: ctrlBtnSize,
+              height: ctrlBtnSize,
+              // color: btnBackgroundColor,
+              // splashColor: btnForegroundColor,
+              // indicateColor: btnIndicateColor,
+              icon: Icons.stop,
+              // iconSize: dIconSize,
+              onTap: () {
+                // pieceOperationState.pieceRotation(RotationOperationType.L);
+// // 操作モード : 開始時のみ要求を処理
+                // if (operation.value.operationType != OperationType.start) return;
 
-//                 // // 左回転
-//                 // operation.mainOperation(OperationRequestType.rotationLeft);
-//               },
-//             ),
-//           ),
-          // // 右回転
-          // Positioned(
-          //   right: 0,
-          //   bottom: 0,
-          //   child: CustomMenuButton(
-          //     width: ctrlBtnSize,
-          //     height: ctrlBtnSize,
-          //     // color: btnBackgroundColor,
-          //     // splashColor: btnForegroundColor,
-          //     // indicateColor: btnIndicateColor,
-          //     icon: Icons.play_arrow,
-          //     // iconSize: dIconSize,
-          //     onTap: () {
-          //       mainFieldState.reset();
-          //       dropSetState.reset();
-          //       playController.gameLogic();
-          //       // pieceOperationState.pieceRotation(RotationOperationType.R);
-          //       // // 操作モード : 開始時のみ要求を処理
-          //       // if (operation.value.operationType != OperationType.start) return;
+                // // 左回転
+                // operation.mainOperation(OperationRequestType.rotationLeft);
+              },
+            ),
+          ),
+          // 右回転
+          Positioned(
+            right: 0,
+            bottom: 0,
+            child: CustomMenuButton(
+              width: ctrlBtnSize,
+              height: ctrlBtnSize,
+              // color: btnBackgroundColor,
+              // splashColor: btnForegroundColor,
+              // indicateColor: btnIndicateColor,
+              icon: Icons.play_arrow,
+              // iconSize: dIconSize,
+              onTap: () {
+                mainFieldState.reset();
+                dropSetState.reset();
+                playController.gameLogic();
+                // pieceOperationState.pieceRotation(RotationOperationType.R);
+                // // 操作モード : 開始時のみ要求を処理
+                // if (operation.value.operationType != OperationType.start) return;
 
-          //       // // 右回転
-          //       // operation.mainOperation(OperationRequestType.rotationRight);
-          //     },
-          //   ),
-          // ),
+                // // 右回転
+                // operation.mainOperation(OperationRequestType.rotationRight);
+              },
+            ),
+          ),
         ],
       ),
     );

@@ -50,11 +50,11 @@ class ControllerMovement extends ConsumerWidget {
             child: CustomMenuButton(
               width: ctrlBtnSize,
               height: ctrlBtnSize,
+              icon: Icons.west,
+              iconSize: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,
-              icon: Icons.west,
-              // iconSize: dIconSize,
               onTap: () {
                 pieceOperationState.pieceHorizontalMove(MoveOperationType.L);
                 // // 操作モード : 開始時のみ要求を処理
@@ -72,11 +72,11 @@ class ControllerMovement extends ConsumerWidget {
             child: CustomMenuButton(
               width: ctrlBtnSize,
               height: ctrlBtnSize,
+              icon: Icons.north,
+              iconSize: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,
-              icon: Icons.north,
-              // iconSize: dIconSize,
               onTap: () {
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
@@ -93,11 +93,11 @@ class ControllerMovement extends ConsumerWidget {
             child: CustomMenuButton(
               width: ctrlBtnSize,
               height: ctrlBtnSize,
+              icon: Icons.south,
+              iconSize: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,
-              icon: Icons.south,
-              // iconSize: dIconSize,
               // onTap: () => operation.mainOperation(OperationRequestType.softDrop),
               onTapDown: () {
                 playController.fastFall(true);
@@ -117,11 +117,11 @@ class ControllerMovement extends ConsumerWidget {
             child: CustomMenuButton(
               width: ctrlBtnSize,
               height: ctrlBtnSize,
+              icon: Icons.east,
+              iconSize: ctrlBtnSize,
               // color: btnBackgroundColor,
               // splashColor: btnForegroundColor,
               // indicateColor: btnIndicateColor,
-              icon: Icons.east,
-              // iconSize: dIconSize,
               onTap: () {
                 pieceOperationState.pieceHorizontalMove(MoveOperationType.R);
                 // // 操作モード : 開始時のみ要求を処理

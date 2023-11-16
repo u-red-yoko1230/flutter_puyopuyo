@@ -16,8 +16,8 @@ class AppSettings {
 
   /// ぷよサイズ
   static const Map<Orientation, double> basePuyoSize = {
-    Orientation.portrait: 60.0,
-    Orientation.landscape: 60.0,
+    Orientation.portrait: 90.0,
+    Orientation.landscape: 110.0,
   };
 
   /// コントローラーボタンサイズ
