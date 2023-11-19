@@ -76,13 +76,13 @@ class PieceOperationState extends ChangeNotifier {
     // 落下
     resultStateList.add(state.copyWith(
       axisPositionY: afterMoveAxisPositionY,
-      quickTurnFlag: false,
+      // quickTurnFlag: false,
     ));
 
     // 接地待機時間カウント
     resultStateList.add(state.copyWith(
       groundingTime: afterMoveGroundingTime,
-      quickTurnFlag: false,
+      // quickTurnFlag: false,
     ));
 
     // 状態リストの精査
