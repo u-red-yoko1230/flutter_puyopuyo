@@ -1,14 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_puyopuyo/enum/player_action_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../app_settings.dart';
 import '../controller/game_controller.dart';
 import '../enum/move_operation_type.dart';
-import '../state/main_field_state.dart';
 import '../state/piece_operation_state.dart';
 import 'custom_menu_button.dart';
 
@@ -30,10 +26,7 @@ class ControllerMovement extends ConsumerWidget {
     // プロバイダー
     // プレイコントローラ
     final GameController playController = ref.read(gameControllerProvider);
-    // メインフィールド
-    final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
-    //
-    // final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
+    // ピース(ツモ)操作状態
     final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     return Container(
@@ -52,16 +45,12 @@ class ControllerMovement extends ConsumerWidget {
               height: ctrlBtnSize,
               icon: Icons.west,
               iconSize: ctrlBtnSize,
-              // color: btnBackgroundColor,
-              // splashColor: btnForegroundColor,
-              // indicateColor: btnIndicateColor,
               onTap: () {
-                pieceOperationState.pieceHorizontalMove(MoveOperationType.L);
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 
-                // // 左移動
-                // operation.mainOperation(OperationRequestType.moveLeftSingle);
+                // ピース(ツモ)横移動
+                pieceOperationState.pieceHorizontalMove(MoveOperationType.L);
               },
             ),
           ),
@@ -74,9 +63,6 @@ class ControllerMovement extends ConsumerWidget {
               height: ctrlBtnSize,
               icon: Icons.north,
               iconSize: ctrlBtnSize,
-              // color: btnBackgroundColor,
-              // splashColor: btnForegroundColor,
-              // indicateColor: btnIndicateColor,
               onTap: () {
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
@@ -95,19 +81,14 @@ class ControllerMovement extends ConsumerWidget {
               height: ctrlBtnSize,
               icon: Icons.south,
               iconSize: ctrlBtnSize,
-              // color: btnBackgroundColor,
-              // splashColor: btnForegroundColor,
-              // indicateColor: btnIndicateColor,
-              // onTap: () => operation.mainOperation(OperationRequestType.softDrop),
               onTapDown: () {
+                // 高速落下 : 有効
                 playController.fastFall(true);
               },
               onTapUp: () {
+                // 高速落下 : 無効
                 playController.fastFall(false);
               },
-              // onTap: () {
-              //   mainFieldState.test2();
-              // },
             ),
           ),
           // 右移動
@@ -119,16 +100,12 @@ class ControllerMovement extends ConsumerWidget {
               height: ctrlBtnSize,
               icon: Icons.east,
               iconSize: ctrlBtnSize,
-              // color: btnBackgroundColor,
-              // splashColor: btnForegroundColor,
-              // indicateColor: btnIndicateColor,
               onTap: () {
-                pieceOperationState.pieceHorizontalMove(MoveOperationType.R);
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 
-                // // 右移動
-                // operation.mainOperation(OperationRequestType.moveRightSingle);
+                // ピース(ツモ)横移動
+                pieceOperationState.pieceHorizontalMove(MoveOperationType.R);
               },
             ),
           ),

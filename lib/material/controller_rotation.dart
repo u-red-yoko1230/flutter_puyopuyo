@@ -23,17 +23,12 @@ class ControllerRotation extends ConsumerWidget {
     final double ctrlBtnSize = AppSettings.baseCtrlBtnSize[orientation]!.r;
 
     // プロバイダー
-    // プレイコントローラ
-    // final GameController playController = ref.read(gameControllerProvider);
-    // // メインフィールド
-    // final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
-    //
-    // final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
+    // ピース(ツモ)操作状態
     final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     return Container(
-      width: ctrlBtnSize * 2,
-      height: ctrlBtnSize * 2,
+      width: ctrlBtnSize * 3,
+      height: ctrlBtnSize * 3,
       color: Colors.amberAccent,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -43,20 +38,16 @@ class ControllerRotation extends ConsumerWidget {
             left: 0,
             bottom: 0,
             child: CustomMenuButton(
-              width: ctrlBtnSize,
-              height: ctrlBtnSize,
-              // color: btnBackgroundColor,
-              // splashColor: btnForegroundColor,
-              // indicateColor: btnIndicateColor,
+              width: ctrlBtnSize*1.5,
+              height: ctrlBtnSize*1.5,
               icon: Icons.rotate_left,
-              // iconSize: dIconSize,
+              iconSize: ctrlBtnSize,
               onTap: () {
-                pieceOperationState.pieceRotation(RotationOperationType.L);
-// // 操作モード : 開始時のみ要求を処理
+                // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 
-                // // 左回転
-                // operation.mainOperation(OperationRequestType.rotationLeft);
+                // ピース(ツモ)回転 : 左回転
+                pieceOperationState.pieceRotation(RotationOperationType.L);
               },
             ),
           ),
@@ -65,20 +56,16 @@ class ControllerRotation extends ConsumerWidget {
             top: 0,
             right: 0,
             child: CustomMenuButton(
-              width: ctrlBtnSize,
-              height: ctrlBtnSize,
-              // color: btnBackgroundColor,
-              // splashColor: btnForegroundColor,
-              // indicateColor: btnIndicateColor,
+              width: ctrlBtnSize*1.5,
+              height: ctrlBtnSize*1.5,
               icon: Icons.rotate_right,
-              // iconSize: dIconSize,
+              iconSize: ctrlBtnSize,
               onTap: () {
-                pieceOperationState.pieceRotation(RotationOperationType.R);
                 // // 操作モード : 開始時のみ要求を処理
                 // if (operation.value.operationType != OperationType.start) return;
 
-                // // 右回転
-                // operation.mainOperation(OperationRequestType.rotationRight);
+                // ピース(ツモ)回転 : 右回転
+                pieceOperationState.pieceRotation(RotationOperationType.R);
               },
             ),
           ),

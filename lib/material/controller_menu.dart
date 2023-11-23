@@ -28,61 +28,45 @@ class ControllerMenu extends ConsumerWidget {
     final GameController playController = ref.read(gameControllerProvider);
     // メインフィールド
     final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
-
+    // 配ぷよ(ドロップセット)リスト
     final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
-    // final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     return Container(
-      width: ctrlBtnSize * 2,
-      height: ctrlBtnSize * 1,
+      width: ctrlBtnSize * 4,
+      height: ctrlBtnSize * 2,
       color: Colors.amberAccent,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          // 左回転
+          // ゲーム終了
           Positioned(
             left: 0,
             bottom: 0,
             child: CustomMenuButton(
-              width: ctrlBtnSize,
-              height: ctrlBtnSize,
-              // color: btnBackgroundColor,
-              // splashColor: btnForegroundColor,
-              // indicateColor: btnIndicateColor,
+              width: ctrlBtnSize * 2,
+              height: ctrlBtnSize * 2,
               icon: Icons.stop,
-              // iconSize: dIconSize,
+              iconSize: ctrlBtnSize,
               onTap: () {
-                // pieceOperationState.pieceRotation(RotationOperationType.L);
-// // 操作モード : 開始時のみ要求を処理
-                // if (operation.value.operationType != OperationType.start) return;
-
-                // // 左回転
-                // operation.mainOperation(OperationRequestType.rotationLeft);
               },
             ),
           ),
-          // 右回転
+          // ゲーム開始
           Positioned(
             right: 0,
             bottom: 0,
             child: CustomMenuButton(
-              width: ctrlBtnSize,
-              height: ctrlBtnSize,
-              // color: btnBackgroundColor,
-              // splashColor: btnForegroundColor,
-              // indicateColor: btnIndicateColor,
+              width: ctrlBtnSize * 2,
+              height: ctrlBtnSize * 2,
               icon: Icons.play_arrow,
-              // iconSize: dIconSize,
+              iconSize: ctrlBtnSize,
               onTap: () {
+                // メインフィールドリセット
                 mainFieldState.reset();
+                // 配ぷよ(ドロップセット)リストリセット
                 dropSetState.reset();
+                // プレイコントローラゲームロジック
                 playController.gameLogic();
-                // pieceOperationState.pieceRotation(RotationOperationType.R);
-                // // 操作モード : 開始時のみ要求を処理
-                // if (operation.value.operationType != OperationType.start) return;
-
-                // // 右回転
-                // operation.mainOperation(OperationRequestType.rotationRight);
               },
             ),
           ),
