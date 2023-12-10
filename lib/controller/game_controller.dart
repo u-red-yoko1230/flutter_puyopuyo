@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:flutter_puyopuyo/game_settings.dart';
-import 'package:flutter_puyopuyo/state/game_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../enum/game_state_type.dart';
 import '../enum/player_action_type.dart';
+import '../game_settings.dart';
 import '../state/piece_operation_state.dart';
 
 /// ゲームコントローラープロバイダ
@@ -16,6 +15,9 @@ class GameController {
   GameController(this.ref);
 
   final Ref ref;
+
+  /// ゲーム状態
+  GameStateType currentGameState = GameStateType.none;
 
   /// プレイヤーアクションリスト
   List<PlayerActionType> playerActionList = [];
@@ -28,29 +30,51 @@ class GameController {
   /// 自由落下タイマー
   Timer? freeFallTimer;
 
+  /// ゲーム状態の変更
+  void changeOfGameState(GameStateType gameState) {
+    // 変更前ゲーム状態による前処理
+
+    // ゲームモード変更
+    currentGameState = gameState;
+
+    // 変更後ゲーム状態による後処理
+    //#region ゲーム状態 : 実行時
+    if (currentGameState == GameStateType.run) {
+      changeOfFallMode(true, false);
+    }
+    //#endregion
+    //#region ゲーム状態 : 停止時
+    else if (currentGameState == GameStateType.pause) {
+      changeOfFallMode(false, false);
+    }
+    //#endregion
+  }
+
   /// ゲームロジック
   Future<void> gameLogic() async {
     // プロバイダー
-    // ゲーム状態
-    final GameState gameState = ref.read(gameStateProvider.notifier);
-    // ピース(ツモ)操作状態
-    final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
+    // // ゲーム状態
+    // final GameState gameState = ref.read(gameStateProvider.notifier);
+    // // ピース(ツモ)操作状態
+    // final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
     // // メインフィールド
     // final MainFieldState mainFieldState = ref.read(mainFieldStateProvider.notifier);
 
-    // ゲーム状態 : 実行
-    gameState.changeOfGameState(GameStateType.run);
+    // // ゲーム状態 : 実行
+    // gameState.changeOfGameState(GameStateType.run);
 
-    // タイマーセット
-    freeFallTimer?.cancel();
-    freeFallTimer = Timer.periodic(Duration(milliseconds: time), (t) {
-      pieceOperationState.pieceFall();
-    });
+    // // タイマーセット
+    // freeFallTimer?.cancel();
+    // freeFallTimer = Timer.periodic(Duration(milliseconds: time), (t) {
+    //   pieceOperationState.pieceFall();
+    // });
+
+    // 現在の状態
 
     // アクション
-    while (gameState.getState() != GameStateType.none) {
+    while (currentGameState != GameStateType.none) {
       //#region ゲーム状態 : 実行時
-      if (gameState.getState() == GameStateType.run) {
+      if (currentGameState == GameStateType.run) {
         // if (playerActionList.contains(PlayerActionType.crossKeyDown)) {
         //   time = time2;
         //   // freeFallTimer?.cancel();
@@ -69,20 +93,22 @@ class GameController {
       // }
       await Future.delayed(const Duration(microseconds: 1));
     }
-    freeFallTimer = null;
+    // freeFallTimer = null;
   }
 
-  /// 高速落下
-  void fastFall(bool enable) {
+  /// 落下モードの変更
+  void changeOfFallMode(bool enable, bool fast) {
     // プロバイダー
     // ピース(ツモ)操作状態
     final PieceOperationState pieceOperationState = ref.read(pieceOperationStateProvider.notifier);
 
     freeFallTimer?.cancel();
     freeFallTimer = null;
-    freeFallTimer = Timer.periodic(Duration(microseconds: enable ? GameSettings.fastFallSpeed : GameSettings.freeFallSpeed), (t) {
-      pieceOperationState.pieceFall();
-    });
+    if (enable) {
+      freeFallTimer = Timer.periodic(Duration(microseconds: fast ? GameSettings.fastFallSpeed : GameSettings.freeFallSpeed), (t) {
+        pieceOperationState.pieceFall();
+      });
+    }
   }
   // /// ゲーム開始/終了
   // void game(bool enable) {

@@ -83,11 +83,11 @@ class ControllerMovement extends HookConsumerWidget {
               iconSize: ctrlBtnSize,
               onTapDown: () {
                 // 高速落下 : 有効
-                playController.fastFall(true);
+                playController.changeOfFallMode(true, true);
               },
               onTapUp: () {
                 // 高速落下 : 無効
-                playController.fastFall(false);
+                playController.changeOfFallMode(true, false);
               },
             ),
           ),

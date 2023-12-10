@@ -34,6 +34,9 @@ dependencies:
   # Flutter Screenutil
   flutter_screenutil: ^5.9.0
 
+  # Flutter Hooks
+  flutter_hooks: ^0.20.3
+
   # Flutter Hooks Riverpod
   hooks_riverpod: ^2.4.9
 

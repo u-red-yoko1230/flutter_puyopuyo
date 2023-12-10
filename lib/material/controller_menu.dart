@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_puyopuyo/enum/game_state_type.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -48,6 +49,8 @@ class ControllerMenu extends HookConsumerWidget {
               icon: Icons.stop,
               iconSize: ctrlBtnSize,
               onTap: () {
+                // ゲーム状態の変更
+                playController.changeOfGameState(GameStateType.pause);
               },
             ),
           ),
@@ -65,8 +68,8 @@ class ControllerMenu extends HookConsumerWidget {
                 mainFieldState.reset();
                 // 配ぷよ(ドロップセット)リストリセット
                 dropSetState.reset();
-                // プレイコントローラゲームロジック
-                playController.gameLogic();
+                // ゲーム状態の変更
+                playController.changeOfGameState(GameStateType.run);
               },
             ),
           ),

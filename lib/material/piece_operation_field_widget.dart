@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app_settings.dart';
+import '../controller/game_controller.dart';
 import '../enum/game_state_type.dart';
 import '../enum/puyo_shape_type.dart';
 import '../game_settings.dart';
@@ -10,7 +11,6 @@ import '../model/drop_set.dart';
 import '../model/piece_operation.dart';
 import '../model/puyo.dart';
 import '../state/drop_set_state.dart';
-import '../state/game_state.dart';
 import '../state/piece_operation_state.dart';
 import 'puyo_widget.dart';
 
@@ -31,8 +31,8 @@ class PieceOperationFieldWidget extends HookConsumerWidget {
     final double puyoSize = AppSettings.basePuyoSize[orientation]!.r;
 
     // プロバイダー
-    // ゲーム状態
-    final GameStateType gameState = ref.watch(gameStateProvider);
+    // プレイコントローラ
+    final GameController playController = ref.read(gameControllerProvider);
     // ピース(ツモ)操作状態
     final PieceOperationState pieceOperationState = ref.watch(pieceOperationStateProvider);
     // 配ぷよ(ドロップセット)リスト
@@ -93,7 +93,7 @@ class PieceOperationFieldWidget extends HookConsumerWidget {
       width: puyoSize * GameSettings.mainFieldXSize,
       height: puyoSize * GameSettings.mainFieldYSize,
       child: Visibility(
-        visible: gameState == GameStateType.run,
+        visible: playController.currentGameState == GameStateType.run,
         maintainState: true,
         maintainAnimation: true,
         maintainSize: false,
