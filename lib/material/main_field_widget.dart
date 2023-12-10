@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
@@ -9,7 +9,7 @@ import 'cross_mark_widget.dart';
 import 'puyo_widget.dart';
 
 /// メインフィールド
-class MainFieldWidget extends ConsumerWidget {
+class MainFieldWidget extends HookConsumerWidget {
   const MainFieldWidget({
     super.key,
     required this.orientation,

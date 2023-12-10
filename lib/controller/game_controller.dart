@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_puyopuyo/game_settings.dart';
 import 'package:flutter_puyopuyo/state/game_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../enum/game_state_type.dart';
 import '../enum/player_action_type.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app_settings.dart';
 import '../controller/game_controller.dart';
@@ -9,7 +9,7 @@ import '../state/main_field_state.dart';
 import 'custom_menu_button.dart';
 
 /// コントローラー（メニュー）
-class ControllerMenu extends ConsumerWidget {
+class ControllerMenu extends HookConsumerWidget {
   const ControllerMenu({
     super.key,
     required this.orientation,

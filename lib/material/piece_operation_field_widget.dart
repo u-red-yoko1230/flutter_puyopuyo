@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app_settings.dart';
 import '../enum/game_state_type.dart';
@@ -16,7 +16,7 @@ import 'puyo_widget.dart';
 
 /// ピース(ツモ)操作フィールド
 /// Piece Operation Field
-class PieceOperationFieldWidget extends ConsumerWidget {
+class PieceOperationFieldWidget extends HookConsumerWidget {
   const PieceOperationFieldWidget({
     super.key,
     required this.orientation,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app_settings.dart';
 import '../enum/rotation_operation_type.dart';
@@ -8,7 +8,7 @@ import '../state/piece_operation_state.dart';
 import 'custom_menu_button.dart';
 
 /// コントローラー（回転）
-class ControllerRotation extends ConsumerWidget {
+class ControllerRotation extends HookConsumerWidget {
   const ControllerRotation({
     super.key,
     required this.orientation,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app_settings.dart';
 import '../enum/puyo_shape_type.dart';
@@ -10,7 +10,7 @@ import '../state/drop_set_state.dart';
 import '../state/piece_operation_state.dart';
 import 'puyo_widget.dart';
 
-class NextFieldWidget extends ConsumerWidget {
+class NextFieldWidget extends HookConsumerWidget {
   const NextFieldWidget({
     super.key,
     required this.orientation,

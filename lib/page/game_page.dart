@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_puyopuyo/material/piece_operation_field_widget.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app_settings.dart';
 import '../game_settings.dart';
@@ -11,7 +11,7 @@ import '../material/controller_rotation.dart';
 import '../material/main_field_widget.dart';
 import '../material/next_field_widget.dart';
 
-class GamePage extends ConsumerWidget {
+class GamePage extends HookConsumerWidget {
   const GamePage({
     super.key,
     required this.orientation,
@@ -60,9 +60,9 @@ class GamePage extends ConsumerWidget {
                     Column(
                       children: [
                         ControllerMenu(orientation: orientation),
-                        Text('Erased Puyo : ${1}'),
-                        Text('Max Chains : ${2}'),
-                        Text('Score : ${'00000000'}'),
+                        const Text('Erased Puyo : ${1}'),
+                        const Text('Max Chains : ${2}'),
+                        const Text('Score : ${'00000000'}'),
                       ],
                     ),
                   ],

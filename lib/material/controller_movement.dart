@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app_settings.dart';
 import '../controller/game_controller.dart';
@@ -9,7 +9,7 @@ import '../state/piece_operation_state.dart';
 import 'custom_menu_button.dart';
 
 /// コントローラー（移動）
-class ControllerMovement extends ConsumerWidget {
+class ControllerMovement extends HookConsumerWidget {
   const ControllerMovement({
     super.key,
     required this.orientation,
