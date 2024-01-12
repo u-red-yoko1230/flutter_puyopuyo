@@ -37,6 +37,12 @@ class GameSettings {
   /// 高速落下速度(μs)
   static const int fastFallSpeed = 5000;
 
+  /// ピース(ツモ)横移動 : アニメーション : フレーム数
+  static const int pieceHorizontalMoveAnimationNumOfFrames = 1;
+
+  /// ピース(ツモ)横移動 : アニメーション : 周期時間(μs)
+  static const int pieceHorizontalMoveAnimationCycleTime = 30000;
+
   /// ぷよ(色)リスト
   static const List<PuyoType> puyoColorList = [
     PuyoType.r,

@@ -30,6 +30,12 @@ class PieceOperationState extends ChangeNotifier {
   /// 現在の手数位置
   int currentHandPosition = 0;
 
+  /// 横移動処理フラグ
+  bool horizontalMoveProcessFlag = false;
+
+  /// 回転処理フラグ
+  bool rotationProcessFlag = false;
+
   /// リセット
   void reset() {
     state = const PieceOperation();
@@ -137,6 +143,9 @@ class PieceOperationState extends ChangeNotifier {
   void pieceHorizontalMove(MoveOperationType moveOperationType) {
     assert([MoveOperationType.R, MoveOperationType.L].contains(moveOperationType));
 
+    // ピース(ツモ)横移動 : アニメーション実行中の場合は処理できない
+    if (horizontalMoveProcessFlag) return;
+
     // プロバイダー
     // 配ぷよ(ドロップセット)リスト
     final DropSetState dropSetState = ref.read(dropSetStateProvider.notifier);
@@ -147,40 +156,75 @@ class PieceOperationState extends ChangeNotifier {
     final DropSet? dropSet = dropSetState.getDropSet(currentHandPosition);
     if (dropSet == null) return;
 
+    // 移動前 : 軸位置 : X
+    double beforeMoveAxisPositionX = state.axisPositionX;
+
     // 移動後 : 軸位置 : X
     double afterMoveAxisPositionX = 0.0;
-    // // 移動後 : 軸位置 : Y
-    // double afterMoveAxisPositionY = 0.0;
+
     // 移動処理が正常終了した場合の状態リストを設定
-    List<PieceOperation> resultStateList = [];
+    List<PieceOperation> afterStateList = [];
 
     // 形状別リスト設定
     if (dropSet.puyoShapeType == PuyoShapeType.I) {
       // 横移動
       switch (moveOperationType) {
         case MoveOperationType.R:
-          afterMoveAxisPositionX = state.axisPositionX + GameSettings.numOfMoveSteps;
+          afterMoveAxisPositionX = beforeMoveAxisPositionX + GameSettings.numOfMoveSteps;
         case MoveOperationType.L:
-          afterMoveAxisPositionX = state.axisPositionX - GameSettings.numOfMoveSteps;
+          afterMoveAxisPositionX = beforeMoveAxisPositionX - GameSettings.numOfMoveSteps;
         case MoveOperationType.U:
         case MoveOperationType.D:
           return;
       }
-      resultStateList.add(state.copyWith(
+      afterStateList.add(state.copyWith(
         axisPositionX: afterMoveAxisPositionX,
         quickTurnFlag: false,
       ));
     }
 
     // 状態リストの精査
-    for (PieceOperation resultState in resultStateList) {
+    for (PieceOperation afterState in afterStateList) {
       // メインフィールドとの衝突チェック
-      if (!mainFieldState.collisionCheck(resultState.getPositionToFieldCoordinate())) {
-        state = resultState;
-        notifyListeners();
+      if (!mainFieldState.collisionCheck(afterState.getPositionToFieldCoordinate())) {
+        // ピース(ツモ)横移動の反映
+        state = afterState;
+
+        // ピース(ツモ)横移動 : アニメーション
+        pieceHorizontalMoveAnimation(beforeMoveAxisPositionX, state.axisPositionX);
+        // notifyListeners();
         break;
       }
     }
+  }
+
+  /// ピース(ツモ)横移動 : アニメーション
+  Future<void> pieceHorizontalMoveAnimation(double beforeMoveAxisPositionX, double afterMoveAxisPositionX) async {
+    // アニメーション : 開始
+    horizontalMoveProcessFlag = true;
+
+    // フレーム数
+    int frames = GameSettings.pieceHorizontalMoveAnimationNumOfFrames;
+
+    // 移動数
+    double moves = (afterMoveAxisPositionX - beforeMoveAxisPositionX);
+
+    // ステップ数
+    double steps = moves / (frames + 1);
+
+    // アニメーション : 処理
+    for (int i = 1; i <= frames; i++) {
+      state = state.copyWith(axisPositionMoveX: beforeMoveAxisPositionX + (steps * i));
+      notifyListeners();
+
+      // アニメーション : 周期時間
+      await Future.delayed(const Duration(microseconds: GameSettings.pieceHorizontalMoveAnimationCycleTime));
+    }
+    state = state.copyWith(axisPositionMoveX: null);
+    notifyListeners();
+
+    // アニメーション : 終了
+    horizontalMoveProcessFlag = false;
   }
 
   /// ピース(ツモ)回転
