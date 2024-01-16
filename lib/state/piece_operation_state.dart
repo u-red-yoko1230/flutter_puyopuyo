@@ -70,10 +70,13 @@ class PieceOperationState extends ChangeNotifier {
     final DropSet? dropSet = dropSetState.getDropSet(currentHandPosition);
     if (dropSet == null) return;
 
+    // 移動 : 落下数
+    double numOfFallSteps =  (GameSettings.numOfMoveSteps / 2);
+
     // // 移動後 : 軸位置 : X
     // double afterMoveAxisPositionX = 0.0;
     // 移動後 : 軸位置 : Y
-    double afterMoveAxisPositionY = state.axisPositionY + 1.0;
+    double afterMoveAxisPositionY = state.axisPositionY + numOfFallSteps;
     // 移動後 : 接地待機時間
     double afterMoveGroundingTime = state.groundingTime + 1.0;
     // 移動処理が正常終了した場合の状態リストを設定

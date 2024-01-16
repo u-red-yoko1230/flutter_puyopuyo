@@ -32,10 +32,10 @@ class GameSettings {
   static const double groundStandbyTime = 10.0;
 
   /// 自由落下速度(μs)
-  static const int freeFallSpeed = 50000;
+  static const int freeFallSpeed = 500000;
 
   /// 高速落下速度(μs)
-  static const int fastFallSpeed = 5000;
+  static const int fastFallSpeed = 50000;
 
   /// ピース(ツモ)横移動 : アニメーション : フレーム数
   static const int pieceHorizontalMoveAnimationNumOfFrames = 1;
