@@ -78,7 +78,7 @@ class PieceOperationState extends ChangeNotifier {
     // 移動後 : 軸位置 : Y
     double afterMoveAxisPositionY = state.axisPositionY + numOfFallSteps;
     // 移動後 : 接地待機時間
-    double afterMoveGroundingTime = state.groundingTime + 1.0;
+    double afterMoveGroundingTime = state.groundingTime + numOfFallSteps;
     // 移動処理が正常終了した場合の状態リストを設定
     List<PieceOperation> resultStateList = [];
 
